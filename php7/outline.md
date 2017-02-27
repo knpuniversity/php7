@@ -2,9 +2,13 @@
 
 ## Preconditions
 
-I don't have MySQL on my host, so think would add the Homestead development environment as explained in http://www.ifdattic.com/how-to-start-using-laravel-homestead/
+Follow the `code/README.md` to start the application.
 
-[[ WRITE README ]]
+If `8000` port is taken choose a different port when running the built-in web server:
+
+```bash
+php bin/console server:run 127.0.0.1:8080
+```
 
 ## Intro
 
