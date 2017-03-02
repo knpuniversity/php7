@@ -1,0 +1,33 @@
+diff --git a/php7/code/src/AppBundle/Entity/Genus.php b/php7/code/src/AppBundle/Entity/Genus.php
+index 77c6b25..e0541cc 100644
+--- a/php7/code/src/AppBundle/Entity/Genus.php
++++ b/php7/code/src/AppBundle/Entity/Genus.php
+@@ -95,7 +95,7 @@ class Genus
+         return $this->id;
+     }
+ 
+-    public function getName()
++    public function getName(): string
+     {
+         return 5;
+         return $this->name;
+diff --git a/php7/outline.md b/php7/outline.md
+index 2c0e9a7..fbdc2e4 100644
+--- a/php7/outline.md
++++ b/php7/outline.md
+@@ -65,10 +65,13 @@ Refresh browser, and show that it throws an error
+ * In `GenusController` add `dump($genus->getName());`
+ * Refresh page, and show that dump panel outputs the value as integer (no quote symbols around the value)
+ 
++**Return types: Add return type on method**
++
+ * Edit `Genus::getName()`
+     - `public function getName(): string`
+-    - Refresh page to show that you can't return integer anymore
+-    - remove `return 5;`
++    - Can mention that if you have IDE configured it will add a red squiggly line to inform that there is an error.
++* Refresh page to show that you can't return integer anymore (throws an error)
++
+ 
+ ## Nullable types
+ 

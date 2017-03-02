@@ -1,0 +1,35 @@
+diff --git a/php7/code/src/AppBundle/Entity/Genus.php b/php7/code/src/AppBundle/Entity/Genus.php
+index 0ee7c90..059c27f 100644
+--- a/php7/code/src/AppBundle/Entity/Genus.php
++++ b/php7/code/src/AppBundle/Entity/Genus.php
+@@ -137,7 +137,7 @@ class Genus
+     {
+         $this->funFact = $funFact;
+ 
+-        return;
++        return null;
+     }
+ 
+     public function getUpdatedAt()
+diff --git a/php7/outline.md b/php7/outline.md
+index b2e3a83..0c7aafe 100644
+--- a/php7/outline.md
++++ b/php7/outline.md
+@@ -118,11 +118,12 @@ Refresh browser, and show that it throws an error
+     - Maybe show `Genus::addGenusScientist()` method which has an empty `return` statement, and is a better example of a void function with `return` statement
+ * Refresh browser to show that everything still works
+ 
+-* You can still use the `return` statement if you need to stop function execution early
+-    - It just has to be an empty return statement `return;`
+-        + It's not necessary, but for example case add `return;` to the end of some setter to show how it would look like. It would be best to use it somewhere in function that quits on `if` statement, but in the current code there is no good method for it.
+-            * Actually found an example in the current code, `LoginFormAuthenticator` line 34 (`if (!$isLoginSubmit) {`) is a loop that uses the empty return statement
+-    - `null` is not a valid return value for a void function, so make sure to use an empty return statement
++**Void functions: Failing void function by returning null**
++
++* Explain that it must be an empty `return` statement, it will fail if you will return `null`
++* Edit `Genus::setFunFact()` with `return null;`
++* Refresh page to show that it fails with self explanatory error message
++
+ 
+ ## Class constant visibility
+ 

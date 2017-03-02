@@ -1,0 +1,27 @@
+diff --git a/php7/code/src/AppBundle/Entity/Genus.php b/php7/code/src/AppBundle/Entity/Genus.php
+index e0541cc..339da35 100644
+--- a/php7/code/src/AppBundle/Entity/Genus.php
++++ b/php7/code/src/AppBundle/Entity/Genus.php
+@@ -97,7 +97,6 @@ class Genus
+ 
+     public function getName(): string
+     {
+-        return 5;
+         return $this->name;
+     }
+ 
+diff --git a/php7/outline.md b/php7/outline.md
+index fbdc2e4..24fab15 100644
+--- a/php7/outline.md
++++ b/php7/outline.md
+@@ -72,6 +72,10 @@ Refresh browser, and show that it throws an error
+     - Can mention that if you have IDE configured it will add a red squiggly line to inform that there is an error.
+ * Refresh page to show that you can't return integer anymore (throws an error)
+ 
++**Return types: Clean up return typed method**
++
++* Remove `return 5;` in `Genus`
++* Refresh page, and show in dump panel that outputted value is string
+ 
+ ## Nullable types
+ 

@@ -1,0 +1,37 @@
+diff --git a/php7/code/src/AppBundle/Entity/Genus.php b/php7/code/src/AppBundle/Entity/Genus.php
+index 81583a9..45e2f77 100644
+--- a/php7/code/src/AppBundle/Entity/Genus.php
++++ b/php7/code/src/AppBundle/Entity/Genus.php
+@@ -1,4 +1,5 @@
+ <?php
++declare(strict_types = 1);
+ 
+ namespace AppBundle\Entity;
+ 
+diff --git a/php7/outline.md b/php7/outline.md
+index 0234992..ae131ee 100644
+--- a/php7/outline.md
++++ b/php7/outline.md
+@@ -37,16 +37,15 @@ Explain that new argument types are available: `bool`, `float`, `int`, `string`
+ * Open `http://localhost:8080/genus/types-example` in browser
+ * Show dump panel in profiler, explain that even if we set the method to accept string it does not give any errors when receiving a different type (like integer)
+ 
++**Scalar types: Add strict_types in entity**
++
+ * Explain that there are two types of typing: weak (default), and strict
+     - Explain that weak typing means that PHP will try to coerce values of the wrong type into the expected scalar type (if you give integer when string is expected it will convert it to string)
+         + The reason why our code works even if it got the wrong type value
+-    - Explain that strict typing means that only a variable of exact type will be accepted, or a TypeError will be thrown
+-        + In `Genus` on top of file type: `declare(strict_types=1);`
+-        + Refresh browser
+-    - Explain that type declarations only work on a per-file basis. Even if our entity is using strict types, because it's called from the controller which uses weak typing the strict typing of the entity is ignored
+-        + In `GenusController` on top of file type: `declare(strict_types=1);`
+-        + Refresh browser, and show that it throws an error
+-* Fill up all the methods with strict types in the `Genus` class.
++    - Explain that strict typing means that only a variable of exact type will be accepted, or a `TypeError` will be thrown
++        + In `Genus` on top of file type: `declare(strict_types = 1);`
++        + Refresh browser (to show that it still works like before)
++
+ 
+ ## Return types
+ 

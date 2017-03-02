@@ -1,0 +1,48 @@
+diff --git a/php7/code/src/AppBundle/Controller/GenusController.php b/php7/code/src/AppBundle/Controller/GenusController.php
+index 05eeafd..6a1c0b2 100644
+--- a/php7/code/src/AppBundle/Controller/GenusController.php
++++ b/php7/code/src/AppBundle/Controller/GenusController.php
+@@ -25,6 +25,13 @@ class GenusController extends Controller
+ 
+         dump($genus);
+         dump($genus->getName());
++
++        $genus->setFunFact('This is fun');
++
++        dump($genus->getFunFact());
++
++        $genus->setFunFact(null);
++
+         dump($genus->getFunFact());
+ 
+         return new Response('<html><body>Testing PHP7</body></html>');
+diff --git a/php7/code/src/AppBundle/Entity/Genus.php b/php7/code/src/AppBundle/Entity/Genus.php
+index e94a833..2ca2c21 100644
+--- a/php7/code/src/AppBundle/Entity/Genus.php
++++ b/php7/code/src/AppBundle/Entity/Genus.php
+@@ -128,7 +128,7 @@ class Genus
+         $this->speciesCount = $speciesCount;
+     }
+ 
+-    public function getFunFact(): string
++    public function getFunFact(): ?string
+     {
+         return $this->funFact;
+     }
+diff --git a/php7/outline.md b/php7/outline.md
+index 3c6bb1f..c17559b 100644
+--- a/php7/outline.md
++++ b/php7/outline.md
+@@ -86,6 +86,12 @@ Refresh browser, and show that it throws an error
+ * Edit `GenusController` to `dump($genus->getFunFact())`
+ * Refresh page, show that it fails (returning `null` when `string` should be returned)
+ 
++**Nullable types: Allow to return null on typed method**
++
++* Edit `Genus::getFunFact()` to return `?string`
++* Edit `GenusController` to set fun fact to `string`, and then to `null`
++* Refresh page, show in dump panel that now it returns `null`, but it can also return `string`
++
+ * Edit `GenusController` with `$genus->setFunFact(null);`
+ * Refresh the browser to show that it fails
+ * Edit `Genus` with `public function setFunFact(?string $funFact): ?string`

@@ -1,0 +1,47 @@
+diff --git a/php7/code/src/AppBundle/Controller/MainController.php b/php7/code/src/AppBundle/Controller/MainController.php
+index 8510c5f..83f5d5d 100644
+--- a/php7/code/src/AppBundle/Controller/MainController.php
++++ b/php7/code/src/AppBundle/Controller/MainController.php
+@@ -26,9 +26,7 @@ class MainController extends Controller
+             }
+ 
+             throw new NoCookiesLeft();
+-        } catch (NoCookieForYou $e) {
+-            $whisper = sprintf('Crazy Dave whispered "%s"', $e->getMessage());
+-        } catch (NoCookiesLeft $e) {
++        } catch (NoCookieForYou | NoCookiesLeft $e) {
+             $whisper = sprintf('Crazy Dave whispered "%s"', $e->getMessage());
+         }
+ 
+diff --git a/php7/outline.md b/php7/outline.md
+index 9d82fab..2bafac0 100644
+--- a/php7/outline.md
++++ b/php7/outline.md
+@@ -32,6 +32,7 @@ Explain that new argument types are available: `bool`, `float`, `int`, `string`
+ * Add `string` to `setName($name)` method
+     + `public function setName(string $name)`
+ * Open `GenusController`
++    + (optional) @see "Misc" section about mentioning `mt_rand()` as this is the first place where you can see striked out code by IDE
+     + Mention that there is already a fancy action for creating new genus, but to make it easier to explain new features we will create a new simple action.
+     + Create `GenusController::typesExampleAction`
+ * Open `http://localhost:8080/genus/types-example` in browser
+@@ -240,9 +241,16 @@ public function getUserAvatarUri(): string
+     - If writing `catch` block code (`$whisper` assignment) might be better to copy paste for the second `catch` to show that we are duplicating code
+ * Refresh page to show that it still works
+ 
+-* !!?? Can't see any good place to introduce the feature. I see two choices for that. One would be to extend exception listener which catches two different exceptions with putting different texts on screen (to show the old way), say what if you want re-use the same catch code you can catch multiple exceptions without copy-pasting the code (show the new way). Then make some action which at random throws one of two exceptions. The other way would be using the same example (random exception, catching it), but done using the separate PHP script (like was done with errors as exceptions).
++**Multi catch exception handling: Add multi catch**
+ 
+-## Misc
++* That took care of all the shouting in the office, but look at all that duplication, it's just ugly
++* Fortunately for us PHP7 allows us to execute the same code for multiple exceptions without duplicating our code
++* Explain that you can catch multiple exceptions by separating them with a pipe character `|`
++* Edit `MainController::cookiesAction()` to catch both exceptions
++* Refresh the page, multiple times to show that it still works
+ 
+-* ?? Some functions have changed their name like `rand()` to `mt_rand()`, not sure if it's worth explaining anything about it. During the planning we decided that it's not worth it. But as during modifying `GenusController` that function (e.g., in `$genus->setName('Octopus'.rand(1, 100));`) would be crossed over I think it might be good to mention something like "some functions changed, and have a better replacements in PHP7, use your IDE to update your code"
++## Misc (optional)
++
++* Some functions have changed their name like `rand()` to `mt_rand()`, not sure if it's worth explaining anything about it. During the planning we decided that it's not worth it. But as during modifying `GenusController` that function (e.g., in `$genus->setName('Octopus'.rand(1, 100));`) would be crossed over I think it might be good to mention something like "some functions changed, and have a better replacements in PHP7, use your IDE to update your code"
++    - RYAN: PHP 7 even includes great changes you don't even need to worry about! Like rand(), is now an alias to mt_rand(), which is a more secure way of generating random numbers. Thanks PHP!
+ * I will let you decide at that point to show a spaceship animation across the screen :D

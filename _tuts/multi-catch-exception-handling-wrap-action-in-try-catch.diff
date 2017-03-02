@@ -1,0 +1,53 @@
+diff --git a/php7/code/src/AppBundle/Controller/MainController.php b/php7/code/src/AppBundle/Controller/MainController.php
+index 2579c56..8510c5f 100644
+--- a/php7/code/src/AppBundle/Controller/MainController.php
++++ b/php7/code/src/AppBundle/Controller/MainController.php
+@@ -6,6 +6,7 @@ use AppBundle\Exception\NoCookieForYou;
+ use AppBundle\Exception\NoCookiesLeft;
+ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
++use Symfony\Component\HttpFoundation\Response;
+ 
+ class MainController extends Controller
+ {
+@@ -19,10 +20,18 @@ class MainController extends Controller
+      */
+     public function cookiesAction()
+     {
+-        if (random_int(0, 1)) {
+-            throw new NoCookieForYou();
++        try {
++            if (random_int(0, 1)) {
++                throw new NoCookieForYou();
++            }
++
++            throw new NoCookiesLeft();
++        } catch (NoCookieForYou $e) {
++            $whisper = sprintf('Crazy Dave whispered "%s"', $e->getMessage());
++        } catch (NoCookiesLeft $e) {
++            $whisper = sprintf('Crazy Dave whispered "%s"', $e->getMessage());
+         }
+ 
+-        throw new NoCookiesLeft();
++        return new Response('<html><body>'.$whisper.'</body></html>');
+     }
+ }
+diff --git a/php7/outline.md b/php7/outline.md
+index e1717f7..9d82fab 100644
+--- a/php7/outline.md
++++ b/php7/outline.md
+@@ -232,6 +232,14 @@ public function getUserAvatarUri(): string
+     - Add `AppBundle\Exception\NoCookiesLeft`
+ * Open `http://localhost:8080/crazy-dave`, refresh a couple of times showing different exception being thrown
+ 
++**Multi catch exception handling: Wrap action in try-catch**
++
++* No matter how awesome those cookies taste we don't enjoy him shouting (throwing random stuff) at us
++* Let's make sure he whispers his answer
++* Edit `MainController::cookiesAction`, wrap it in `try` and two `catch` statements
++    - If writing `catch` block code (`$whisper` assignment) might be better to copy paste for the second `catch` to show that we are duplicating code
++* Refresh page to show that it still works
++
+ * !!?? Can't see any good place to introduce the feature. I see two choices for that. One would be to extend exception listener which catches two different exceptions with putting different texts on screen (to show the old way), say what if you want re-use the same catch code you can catch multiple exceptions without copy-pasting the code (show the new way). Then make some action which at random throws one of two exceptions. The other way would be using the same example (random exception, catching it), but done using the separate PHP script (like was done with errors as exceptions).
+ 
+ ## Misc

@@ -1,0 +1,42 @@
+diff --git a/php7/code/src/AppBundle/Entity/Genus.php b/php7/code/src/AppBundle/Entity/Genus.php
+index 1aadb7a..67e2554 100644
+--- a/php7/code/src/AppBundle/Entity/Genus.php
++++ b/php7/code/src/AppBundle/Entity/Genus.php
+@@ -221,8 +221,14 @@ class Genus
+         );
+     }
+ 
+-    public function feed(iterable $food): string
++    public function feed(iterable $iterableFood): string
+     {
++        $food = $iterableFood;
++
++        if ($iterableFood instanceof \Traversable) {
++            $food = $iterableFood->getArrayCopy();
++        }
++
+         if (count($food) === 0) {
+             return sprintf('%s is looking at you in a funny way', $this->getName());
+         }
+diff --git a/php7/outline.md b/php7/outline.md
+index 254bc11..8281d37 100644
+--- a/php7/outline.md
++++ b/php7/outline.md
+@@ -211,7 +211,16 @@ public function getUserAvatarUri(): string
+ * Edit `Genus::feed()` replace `array` type hint with `iterable`
+ * Refresh page to show that it fails, but not because of the type hint
+ 
+-* !!?? Was looking for a possible way to put an example, but there does not look to be any good places. Thinking about adding to `GenusController::show` something like `$food` array, call `Genus::feed(array $food)` which would provide concatenated string (`$genusName + recently ate + list of array values` and display it in `genus/show.html.twig`). When change `$food` to be an iterator from `ArrayObject` (http://be2.php.net/manual/en/class.arrayobject.php) which behaves similar to simple array, but would break the function because it's not an array. When change the function type hint from `array` to `iterable`, and show that it works (I guess, have not tried yet). Not the best example, but still stays in the same theme and shows how the feature works. Otherwise the alternative would be similar idea but in separate file (`iterate` function, simple array, simple array object iterator and show what just with array/Traversable only one of the calls works, while with `iterable` calling function with both variables works).
++**Iterable pseudo-type: Fix implode on object**
++
++* Explain that our code currently fails because `implode()` requires the `array`
++* We can fix by allowing to call method with either array or object, but inside the method treating that variable as an array (converting it if it's an object)
++* Edit `Genus::feed()` to add conversion to array
++* Refresh page to show that now it works
++* Not sure if it's needed, but if you really wanted to show that it also works with arrays you could:
++    - replace `$food` on line 122 with `['shrimp', 'shark']`
++    - Refresh the page
++    - undo to previous code using `$food`
+ 
+ ## Multi catch exception handling
+ 

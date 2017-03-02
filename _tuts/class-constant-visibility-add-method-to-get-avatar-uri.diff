@@ -1,0 +1,69 @@
+diff --git a/php7/code/src/AppBundle/Controller/GenusController.php b/php7/code/src/AppBundle/Controller/GenusController.php
+index bc58cb4..f72394c 100644
+--- a/php7/code/src/AppBundle/Controller/GenusController.php
++++ b/php7/code/src/AppBundle/Controller/GenusController.php
+@@ -130,7 +130,7 @@ class GenusController extends Controller
+             $notes[] = [
+                 'id' => $note->getId(),
+                 'username' => $note->getUsername(),
+-                'avatarUri' => GenusNote::AVATAR_FILE_PREFIX.$note->getUserAvatarFilename(),
++                'avatarUri' => $note->getUserAvatarUri(),
+                 'note' => $note->getNote(),
+                 'date' => $note->getCreatedAt()->format('M d, Y')
+             ];
+diff --git a/php7/code/src/AppBundle/Entity/GenusNote.php b/php7/code/src/AppBundle/Entity/GenusNote.php
+index 287ffa2..4c4fc7b 100644
+--- a/php7/code/src/AppBundle/Entity/GenusNote.php
++++ b/php7/code/src/AppBundle/Entity/GenusNote.php
+@@ -12,6 +12,8 @@ class GenusNote
+ {
+     private const AVATAR_FILE_PREFIX = '/images/';
+ 
++    private const BLANK_AVATAR_FILENAME = 'blank.jpg';
++
+     /**
+      * @ORM\Id
+      * @ORM\GeneratedValue(strategy="AUTO")
+@@ -60,6 +62,17 @@ class GenusNote
+         return $this->userAvatarFilename;
+     }
+ 
++    public function getUserAvatarUri(): string
++    {
++        $filename = static::BLANK_AVATAR_FILENAME;
++
++        if ($this->getUserAvatarFilename() !== null) {
++            $filename = $this->getUserAvatarFilename();
++        }
++
++        return static::AVATAR_FILE_PREFIX.$filename;
++    }
++
+     public function setUserAvatarFilename($userAvatarFilename)
+     {
+         $this->userAvatarFilename = $userAvatarFilename;
+diff --git a/php7/outline.md b/php7/outline.md
+index a8e5983..3d4d96b 100644
+--- a/php7/outline.md
++++ b/php7/outline.md
+@@ -165,12 +165,14 @@ Refresh browser, and show that it throws an error
+ * Edit `GenusNote`, set constant to private
+ * Refresh page to show that it fails (choose a link from AJAX profiler panel or open `http://localhost:8080/genus/hippocampus/notes`)
+ 
+-* The new change in PHP7 is that you can change the visibility of constants (like with methods/variables).
+-    - To make sure what we don't introduce some errors by manually typing the URI, let's introduce the method to get the URI
+-        + Add `private const BLANK_AVATAR_FILENAME = 'blank.jpg';` in `GenusNote::15`
+-        + Add `GenusNote::getUserAvatarUri()` after `GenusNote::getUserAvatarFilename()`
+-        + Replace `GenusController::98` with `'avatarUri' => $note->getUserAvatarUri(),`
+-        + This way you can re-use the values without exposing more information than is needed (which might lead to code which breaks after changes - there is some fancy word for that, but I never can remember them)
++**Class constant visibility: Add method to get avatar uri**
++
++* To make sure what we don't introduce some errors by manually typing the URI, let's introduce the method to get the URI
++    - Add `private const BLANK_AVATAR_FILENAME = 'blank.jpg';` (there is no image, but as it's not used right now not sure if it's needed) in `GenusNote`
++    - Add `GenusNote::getUserAvatarUri()` after `GenusNote::getUserAvatarFilename()`
++    - Replace `GenusController::133` with `'avatarUri' => $note->getUserAvatarUri(),`
++    - This way you can re-use the values without exposing more information than is needed (which might lead to code which breaks after changes - encapsulation)
++* Refresh page to show that it works like it used to (you might change the value of the constant to show that images fail to load - like we moved them to different place, or AWS S3 failed - but not sure if it's needed)
+ 
+ ```php
+ public function getUserAvatarUri(): string

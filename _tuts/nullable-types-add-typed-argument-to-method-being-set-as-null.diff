@@ -1,0 +1,29 @@
+diff --git a/php7/code/src/AppBundle/Entity/Genus.php b/php7/code/src/AppBundle/Entity/Genus.php
+index 2ca2c21..a777454 100644
+--- a/php7/code/src/AppBundle/Entity/Genus.php
++++ b/php7/code/src/AppBundle/Entity/Genus.php
+@@ -133,7 +133,7 @@ class Genus
+         return $this->funFact;
+     }
+ 
+-    public function setFunFact($funFact)
++    public function setFunFact(string $funFact)
+     {
+         $this->funFact = $funFact;
+     }
+diff --git a/php7/outline.md b/php7/outline.md
+index c17559b..b3e3bff 100644
+--- a/php7/outline.md
++++ b/php7/outline.md
+@@ -92,6 +92,11 @@ Refresh browser, and show that it throws an error
+ * Edit `GenusController` to set fun fact to `string`, and then to `null`
+ * Refresh page, show in dump panel that now it returns `null`, but it can also return `string`
+ 
++**Nullable types: Add typed argument to method being set as null**
++
++* Edit `Genus` with `public function setFunFact(string $funFact)`
++* Refresh browser, show that it fails because this method only accepts the string
++
+ * Edit `GenusController` with `$genus->setFunFact(null);`
+ * Refresh the browser to show that it fails
+ * Edit `Genus` with `public function setFunFact(?string $funFact): ?string`
