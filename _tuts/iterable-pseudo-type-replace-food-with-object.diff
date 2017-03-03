@@ -1,21 +1,3 @@
-diff --git a/php7/outline.md b/php7/outline.md
-index 3d55d45..8780723 100644
---- a/php7/outline.md
-+++ b/php7/outline.md
-@@ -198,6 +198,13 @@ public function getUserAvatarUri(): string
- * Open `http://localhost:8080/genus/hippocampus` in the browser to show that it works
-     - Depending on how fast you record this you might now want to leave this page open, I think the AJAX calls sucks a lot of CPU/RAM making everything slugish
- 
-+**Iterable pseudo-type: Replace food with object**
-+
-+* Explain that maybe we don't know how the food looks like - some like to feed arrays, some like to feed objects - all we know that it behaves like an array
-+* Edit `GenusController::114` to use iterator for food
-+* Refresh page to show that it fails as iterator is not an object (even if they behave similarly)
-+* Explain that we could type hint against `Iterator`, but then it will fail when receiving `array` variable
-+
- * !!?? Was looking for a possible way to put an example, but there does not look to be any good places. Thinking about adding to `GenusController::show` something like `$food` array, call `Genus::feed(array $food)` which would provide concatenated string (`$genusName + recently ate + list of array values` and display it in `genus/show.html.twig`). When change `$food` to be an iterator from `ArrayObject` (http://be2.php.net/manual/en/class.arrayobject.php) which behaves similar to simple array, but would break the function because it's not an array. When change the function type hint from `array` to `iterable`, and show that it works (I guess, have not tried yet). Not the best example, but still stays in the same theme and shows how the feature works. Otherwise the alternative would be similar idea but in separate file (`iterate` function, simple array, simple array object iterator and show what just with array/Traversable only one of the calls works, while with `iterable` calling function with both variables works).
- 
- ## Multi catch exception handling
 diff --git a/src/AppBundle/Controller/GenusController.php b/src/AppBundle/Controller/GenusController.php
 index 0a6fa56..b2a01ef 100644
 --- a/src/AppBundle/Controller/GenusController.php

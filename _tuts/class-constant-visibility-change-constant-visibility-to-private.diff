@@ -1,22 +1,3 @@
-diff --git a/php7/outline.md b/php7/outline.md
-index e085d56..a8e5983 100644
---- a/php7/outline.md
-+++ b/php7/outline.md
-@@ -157,6 +157,14 @@ Refresh browser, and show that it throws an error
-     - Using IDE create a constant `const AVATAR_FILE_PREFIX = '/images/';`
-     - Refresh page to show that it still works like before
- 
-+**Class constant visibility: Change constant visibility to private**
-+
-+* The new change in PHP7 is that you can change the visibility of constants (like with methods/variables).
-+* If you don't define the visibility keyword the constant will be public by default
-+* If we set it to private the controller won't be able to access it anymore
-+* Edit `GenusNote`, set constant to private
-+* Refresh page to show that it fails (choose a link from AJAX profiler panel or open `http://localhost:8080/genus/hippocampus/notes`)
-+
- * The new change in PHP7 is that you can change the visibility of constants (like with methods/variables).
-     - To make sure what we don't introduce some errors by manually typing the URI, let's introduce the method to get the URI
-         + Add `private const BLANK_AVATAR_FILENAME = 'blank.jpg';` in `GenusNote::15`
 diff --git a/src/AppBundle/Entity/GenusNote.php b/src/AppBundle/Entity/GenusNote.php
 index 355591e..287ffa2 100644
 --- a/src/AppBundle/Entity/GenusNote.php

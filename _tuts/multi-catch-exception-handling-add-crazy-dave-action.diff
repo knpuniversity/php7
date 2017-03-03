@@ -1,62 +1,3 @@
-diff --git a/php7/code/src/AppBundle/Exception/NoCookieForYou.php b/php7/code/src/AppBundle/Exception/NoCookieForYou.php
-new file mode 100644
-index 0000000..967d89e
---- /dev/null
-+++ b/php7/code/src/AppBundle/Exception/NoCookieForYou.php
-@@ -0,0 +1,14 @@
-+<?php
-+declare(strict_types = 1);
-+
-+namespace AppBundle\Exception;
-+
-+use Exception;
-+
-+final class NoCookieForYou extends \Exception
-+{
-+    public function __construct($message = 'No cookie for you!', $code = 0, Exception $previous = null)
-+    {
-+        parent::__construct($message, $code, $previous);
-+    }
-+}
-diff --git a/php7/code/src/AppBundle/Exception/NoCookiesLeft.php b/php7/code/src/AppBundle/Exception/NoCookiesLeft.php
-new file mode 100644
-index 0000000..19a7326
---- /dev/null
-+++ b/php7/code/src/AppBundle/Exception/NoCookiesLeft.php
-@@ -0,0 +1,14 @@
-+<?php
-+declare(strict_types = 1);
-+
-+namespace AppBundle\Exception;
-+
-+use Exception;
-+
-+final class NoCookiesLeft extends \Exception
-+{
-+    public function __construct($message = 'There are no more cookies :(', $code = 0, Exception $previous = null)
-+    {
-+        parent::__construct($message, $code, $previous);
-+    }
-+}
-diff --git a/php7/outline.md b/php7/outline.md
-index 8281d37..e1717f7 100644
---- a/php7/outline.md
-+++ b/php7/outline.md
-@@ -224,6 +224,14 @@ public function getUserAvatarUri(): string
- 
- ## Multi catch exception handling
- 
-+**Multi catch exception handling: Add Crazy Dave action**
-+
-+* Explain that we have a Crazy Dave called employee who brings amazing smelling cookies to the office, but he never shares them with you no matter how often you will ask
-+* Edit `MainController`, add `public function cookiesAction()` which randomly throws an exception
-+    - Add `AppBundle\Exception\NoCookiesForYou`
-+    - Add `AppBundle\Exception\NoCookiesLeft`
-+* Open `http://localhost:8080/crazy-dave`, refresh a couple of times showing different exception being thrown
-+
- * !!?? Can't see any good place to introduce the feature. I see two choices for that. One would be to extend exception listener which catches two different exceptions with putting different texts on screen (to show the old way), say what if you want re-use the same catch code you can catch multiple exceptions without copy-pasting the code (show the new way). Then make some action which at random throws one of two exceptions. The other way would be using the same example (random exception, catching it), but done using the separate PHP script (like was done with errors as exceptions).
- 
- ## Misc
 diff --git a/src/AppBundle/Controller/MainController.php b/src/AppBundle/Controller/MainController.php
 index ae8b6ea..2579c56 100644
 --- a/src/AppBundle/Controller/MainController.php
@@ -88,5 +29,45 @@ index ae8b6ea..2579c56 100644
 +        }
 +
 +        throw new NoCookiesLeft();
++    }
++}
+diff --git a/src/AppBundle/Exception/NoCookieForYou.php b/src/AppBundle/Exception/NoCookieForYou.php
+new file mode 100644
+index 0000000..967d89e
+--- /dev/null
++++ b/src/AppBundle/Exception/NoCookieForYou.php
+@@ -0,0 +1,14 @@
++<?php
++declare(strict_types = 1);
++
++namespace AppBundle\Exception;
++
++use Exception;
++
++final class NoCookieForYou extends \Exception
++{
++    public function __construct($message = 'No cookie for you!', $code = 0, Exception $previous = null)
++    {
++        parent::__construct($message, $code, $previous);
++    }
++}
+diff --git a/src/AppBundle/Exception/NoCookiesLeft.php b/src/AppBundle/Exception/NoCookiesLeft.php
+new file mode 100644
+index 0000000..19a7326
+--- /dev/null
++++ b/src/AppBundle/Exception/NoCookiesLeft.php
+@@ -0,0 +1,14 @@
++<?php
++declare(strict_types = 1);
++
++namespace AppBundle\Exception;
++
++use Exception;
++
++final class NoCookiesLeft extends \Exception
++{
++    public function __construct($message = 'There are no more cookies :(', $code = 0, Exception $previous = null)
++    {
++        parent::__construct($message, $code, $previous);
 +    }
 +}

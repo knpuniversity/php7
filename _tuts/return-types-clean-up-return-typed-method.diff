@@ -1,18 +1,3 @@
-diff --git a/php7/outline.md b/php7/outline.md
-index fbdc2e4..24fab15 100644
---- a/php7/outline.md
-+++ b/php7/outline.md
-@@ -72,6 +72,10 @@ Refresh browser, and show that it throws an error
-     - Can mention that if you have IDE configured it will add a red squiggly line to inform that there is an error.
- * Refresh page to show that you can't return integer anymore (throws an error)
- 
-+**Return types: Clean up return typed method**
-+
-+* Remove `return 5;` in `Genus`
-+* Refresh page, and show in dump panel that outputted value is string
- 
- ## Nullable types
- 
 diff --git a/src/AppBundle/Entity/Genus.php b/src/AppBundle/Entity/Genus.php
 index e0541cc..339da35 100644
 --- a/src/AppBundle/Entity/Genus.php

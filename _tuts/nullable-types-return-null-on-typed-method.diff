@@ -1,21 +1,3 @@
-diff --git a/php7/outline.md b/php7/outline.md
-index 24fab15..3c6bb1f 100644
---- a/php7/outline.md
-+++ b/php7/outline.md
-@@ -79,7 +79,13 @@ Refresh browser, and show that it throws an error
- 
- ## Nullable types
- 
-+**Nullable types: Return null on typed method**
-+
- * Explain that you might sometimes want to return a `null` value, or give `null` as argument to a function. This can be done by prefixing type name with a question mark.
-+* Edit `Genus::getFunFact()` to return string type
-+* Edit `GenusController` to `dump($genus->getFunFact())`
-+* Refresh page, show that it fails (returning `null` when `string` should be returned)
-+
- * Edit `GenusController` with `$genus->setFunFact(null);`
- * Refresh the browser to show that it fails
- * Edit `Genus` with `public function setFunFact(?string $funFact): ?string`
 diff --git a/src/AppBundle/Controller/GenusController.php b/src/AppBundle/Controller/GenusController.php
 index a696f1f..05eeafd 100644
 --- a/src/AppBundle/Controller/GenusController.php

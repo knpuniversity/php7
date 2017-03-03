@@ -1,25 +1,3 @@
-diff --git a/php7/outline.md b/php7/outline.md
-index 576cbc2..2c0e9a7 100644
---- a/php7/outline.md
-+++ b/php7/outline.md
-@@ -56,12 +56,15 @@ Refresh browser, and show that it throws an error
- 
- ## Return types
- 
-+**Return types: Return wrong type value on untyped method**
-+
- * Explain that from now on you can define the return type of a function.
- * The same types that are used for arguments can be used for return values
- * Edit `Genus::getName()`
-     - `return 5;` show that you can return integer by default
--* In `GenusController` add `var_dump($genus->getName());`
--* Refresh page
-+* In `GenusController` add `dump($genus->getName());`
-+* Refresh page, and show that dump panel outputs the value as integer (no quote symbols around the value)
-+
- * Edit `Genus::getName()`
-     - `public function getName(): string`
-     - Refresh page to show that you can't return integer anymore
 diff --git a/src/AppBundle/Controller/GenusController.php b/src/AppBundle/Controller/GenusController.php
 index ae81af8..a696f1f 100644
 --- a/src/AppBundle/Controller/GenusController.php

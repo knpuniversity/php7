@@ -1,21 +1,3 @@
-diff --git a/php7/outline.md b/php7/outline.md
-index ae131ee..576cbc2 100644
---- a/php7/outline.md
-+++ b/php7/outline.md
-@@ -46,6 +46,13 @@ Explain that new argument types are available: `bool`, `float`, `int`, `string`
-         + In `Genus` on top of file type: `declare(strict_types = 1);`
-         + Refresh browser (to show that it still works like before)
- 
-+**Scalar types: Add strict_types in controller**
-+
-+Explain that type declarations only work on a per-file basis. Even if our entity is using strict types, because it's called from the controller which uses weak typing the strict typing of the entity is ignored (to allow using strict typed libraries in applications that use weak typing).
-+
-+In `GenusController` on top of file type: `declare(strict_types = 1);` (maybe mention that you can use your IDE to add them to all the files).
-+
-+Refresh browser, and show that it throws an error
- 
- ## Return types
- 
 diff --git a/src/AppBundle/Controller/GenusController.php b/src/AppBundle/Controller/GenusController.php
 index 6df94bb..ae81af8 100644
 --- a/src/AppBundle/Controller/GenusController.php
