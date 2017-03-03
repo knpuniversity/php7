@@ -1,16 +1,3 @@
-diff --git a/php7/code/src/AppBundle/Entity/GenusNote.php b/php7/code/src/AppBundle/Entity/GenusNote.php
-index 355591e..287ffa2 100644
---- a/php7/code/src/AppBundle/Entity/GenusNote.php
-+++ b/php7/code/src/AppBundle/Entity/GenusNote.php
-@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
-  */
- class GenusNote
- {
--    const AVATAR_FILE_PREFIX = '/images/';
-+    private const AVATAR_FILE_PREFIX = '/images/';
- 
-     /**
-      * @ORM\Id
 diff --git a/php7/outline.md b/php7/outline.md
 index e085d56..a8e5983 100644
 --- a/php7/outline.md
@@ -30,3 +17,16 @@ index e085d56..a8e5983 100644
  * The new change in PHP7 is that you can change the visibility of constants (like with methods/variables).
      - To make sure what we don't introduce some errors by manually typing the URI, let's introduce the method to get the URI
          + Add `private const BLANK_AVATAR_FILENAME = 'blank.jpg';` in `GenusNote::15`
+diff --git a/src/AppBundle/Entity/GenusNote.php b/src/AppBundle/Entity/GenusNote.php
+index 355591e..287ffa2 100644
+--- a/src/AppBundle/Entity/GenusNote.php
++++ b/src/AppBundle/Entity/GenusNote.php
+@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
+  */
+ class GenusNote
+ {
+-    const AVATAR_FILE_PREFIX = '/images/';
++    private const AVATAR_FILE_PREFIX = '/images/';
+ 
+     /**
+      * @ORM\Id

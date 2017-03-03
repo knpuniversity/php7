@@ -1,18 +1,3 @@
-diff --git a/php7/code/src/AppBundle/Controller/MainController.php b/php7/code/src/AppBundle/Controller/MainController.php
-index 8510c5f..83f5d5d 100644
---- a/php7/code/src/AppBundle/Controller/MainController.php
-+++ b/php7/code/src/AppBundle/Controller/MainController.php
-@@ -26,9 +26,7 @@ class MainController extends Controller
-             }
- 
-             throw new NoCookiesLeft();
--        } catch (NoCookieForYou $e) {
--            $whisper = sprintf('Crazy Dave whispered "%s"', $e->getMessage());
--        } catch (NoCookiesLeft $e) {
-+        } catch (NoCookieForYou | NoCookiesLeft $e) {
-             $whisper = sprintf('Crazy Dave whispered "%s"', $e->getMessage());
-         }
- 
 diff --git a/php7/outline.md b/php7/outline.md
 index 9d82fab..2bafac0 100644
 --- a/php7/outline.md
@@ -45,3 +30,18 @@ index 9d82fab..2bafac0 100644
 +* Some functions have changed their name like `rand()` to `mt_rand()`, not sure if it's worth explaining anything about it. During the planning we decided that it's not worth it. But as during modifying `GenusController` that function (e.g., in `$genus->setName('Octopus'.rand(1, 100));`) would be crossed over I think it might be good to mention something like "some functions changed, and have a better replacements in PHP7, use your IDE to update your code"
 +    - RYAN: PHP 7 even includes great changes you don't even need to worry about! Like rand(), is now an alias to mt_rand(), which is a more secure way of generating random numbers. Thanks PHP!
  * I will let you decide at that point to show a spaceship animation across the screen :D
+diff --git a/src/AppBundle/Controller/MainController.php b/src/AppBundle/Controller/MainController.php
+index 8510c5f..83f5d5d 100644
+--- a/src/AppBundle/Controller/MainController.php
++++ b/src/AppBundle/Controller/MainController.php
+@@ -26,9 +26,7 @@ class MainController extends Controller
+             }
+ 
+             throw new NoCookiesLeft();
+-        } catch (NoCookieForYou $e) {
+-            $whisper = sprintf('Crazy Dave whispered "%s"', $e->getMessage());
+-        } catch (NoCookiesLeft $e) {
++        } catch (NoCookieForYou | NoCookiesLeft $e) {
+             $whisper = sprintf('Crazy Dave whispered "%s"', $e->getMessage());
+         }
+ 

@@ -1,18 +1,3 @@
-diff --git a/php7/code/src/AppBundle/Controller/GenusController.php b/php7/code/src/AppBundle/Controller/GenusController.php
-index 0a6fa56..b2a01ef 100644
---- a/php7/code/src/AppBundle/Controller/GenusController.php
-+++ b/php7/code/src/AppBundle/Controller/GenusController.php
-@@ -111,7 +111,9 @@ class GenusController extends Controller
-         $recentNotes = $em->getRepository('AppBundle:GenusNote')
-             ->findAllRecentNotesForGenus($genus);
- 
--        $food = ['shrimp', 'clams', 'lobsters', 'shark'];
-+        $foodArray = ['shrimp', 'clams', 'lobsters', 'shark'];
-+        $foodObject = new \ArrayObject($foodArray);
-+        $food = $foodObject->getIterator();
- 
-         return $this->render('genus/show.html.twig', array(
-             'genus' => $genus,
 diff --git a/php7/outline.md b/php7/outline.md
 index 3d55d45..8780723 100644
 --- a/php7/outline.md
@@ -31,3 +16,18 @@ index 3d55d45..8780723 100644
  * !!?? Was looking for a possible way to put an example, but there does not look to be any good places. Thinking about adding to `GenusController::show` something like `$food` array, call `Genus::feed(array $food)` which would provide concatenated string (`$genusName + recently ate + list of array values` and display it in `genus/show.html.twig`). When change `$food` to be an iterator from `ArrayObject` (http://be2.php.net/manual/en/class.arrayobject.php) which behaves similar to simple array, but would break the function because it's not an array. When change the function type hint from `array` to `iterable`, and show that it works (I guess, have not tried yet). Not the best example, but still stays in the same theme and shows how the feature works. Otherwise the alternative would be similar idea but in separate file (`iterate` function, simple array, simple array object iterator and show what just with array/Traversable only one of the calls works, while with `iterable` calling function with both variables works).
  
  ## Multi catch exception handling
+diff --git a/src/AppBundle/Controller/GenusController.php b/src/AppBundle/Controller/GenusController.php
+index 0a6fa56..b2a01ef 100644
+--- a/src/AppBundle/Controller/GenusController.php
++++ b/src/AppBundle/Controller/GenusController.php
+@@ -111,7 +111,9 @@ class GenusController extends Controller
+         $recentNotes = $em->getRepository('AppBundle:GenusNote')
+             ->findAllRecentNotesForGenus($genus);
+ 
+-        $food = ['shrimp', 'clams', 'lobsters', 'shark'];
++        $foodArray = ['shrimp', 'clams', 'lobsters', 'shark'];
++        $foodObject = new \ArrayObject($foodArray);
++        $food = $foodObject->getIterator();
+ 
+         return $this->render('genus/show.html.twig', array(
+             'genus' => $genus,

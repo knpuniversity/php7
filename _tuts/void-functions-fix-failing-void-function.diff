@@ -1,16 +1,3 @@
-diff --git a/php7/code/src/AppBundle/Entity/Genus.php b/php7/code/src/AppBundle/Entity/Genus.php
-index 059c27f..0ee7c90 100644
---- a/php7/code/src/AppBundle/Entity/Genus.php
-+++ b/php7/code/src/AppBundle/Entity/Genus.php
-@@ -137,7 +137,7 @@ class Genus
-     {
-         $this->funFact = $funFact;
- 
--        return null;
-+        return;
-     }
- 
-     public function getUpdatedAt()
 diff --git a/php7/outline.md b/php7/outline.md
 index 0c7aafe..b4a888d 100644
 --- a/php7/outline.md
@@ -26,3 +13,16 @@ index 0c7aafe..b4a888d 100644
  
  ## Class constant visibility
  
+diff --git a/src/AppBundle/Entity/Genus.php b/src/AppBundle/Entity/Genus.php
+index 059c27f..0ee7c90 100644
+--- a/src/AppBundle/Entity/Genus.php
++++ b/src/AppBundle/Entity/Genus.php
+@@ -137,7 +137,7 @@ class Genus
+     {
+         $this->funFact = $funFact;
+ 
+-        return null;
++        return;
+     }
+ 
+     public function getUpdatedAt()

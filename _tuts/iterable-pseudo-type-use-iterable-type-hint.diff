@@ -1,16 +1,3 @@
-diff --git a/php7/code/src/AppBundle/Entity/Genus.php b/php7/code/src/AppBundle/Entity/Genus.php
-index 292418e..1aadb7a 100644
---- a/php7/code/src/AppBundle/Entity/Genus.php
-+++ b/php7/code/src/AppBundle/Entity/Genus.php
-@@ -221,7 +221,7 @@ class Genus
-         );
-     }
- 
--    public function feed(array $food): string
-+    public function feed(iterable $food): string
-     {
-         if (count($food) === 0) {
-             return sprintf('%s is looking at you in a funny way', $this->getName());
 diff --git a/php7/outline.md b/php7/outline.md
 index 8780723..254bc11 100644
 --- a/php7/outline.md
@@ -28,3 +15,16 @@ index 8780723..254bc11 100644
  * !!?? Was looking for a possible way to put an example, but there does not look to be any good places. Thinking about adding to `GenusController::show` something like `$food` array, call `Genus::feed(array $food)` which would provide concatenated string (`$genusName + recently ate + list of array values` and display it in `genus/show.html.twig`). When change `$food` to be an iterator from `ArrayObject` (http://be2.php.net/manual/en/class.arrayobject.php) which behaves similar to simple array, but would break the function because it's not an array. When change the function type hint from `array` to `iterable`, and show that it works (I guess, have not tried yet). Not the best example, but still stays in the same theme and shows how the feature works. Otherwise the alternative would be similar idea but in separate file (`iterate` function, simple array, simple array object iterator and show what just with array/Traversable only one of the calls works, while with `iterable` calling function with both variables works).
  
  ## Multi catch exception handling
+diff --git a/src/AppBundle/Entity/Genus.php b/src/AppBundle/Entity/Genus.php
+index 292418e..1aadb7a 100644
+--- a/src/AppBundle/Entity/Genus.php
++++ b/src/AppBundle/Entity/Genus.php
+@@ -221,7 +221,7 @@ class Genus
+         );
+     }
+ 
+-    public function feed(array $food): string
++    public function feed(iterable $food): string
+     {
+         if (count($food) === 0) {
+             return sprintf('%s is looking at you in a funny way', $this->getName());

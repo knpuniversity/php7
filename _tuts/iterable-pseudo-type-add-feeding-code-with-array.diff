@@ -1,7 +1,7 @@
-diff --git a/php7/code/app/Resources/views/genus/show.html.twig b/php7/code/app/Resources/views/genus/show.html.twig
+diff --git a/app/Resources/views/genus/show.html.twig b/app/Resources/views/genus/show.html.twig
 index a476631..ad0d706 100644
---- a/php7/code/app/Resources/views/genus/show.html.twig
-+++ b/php7/code/app/Resources/views/genus/show.html.twig
+--- a/app/Resources/views/genus/show.html.twig
++++ b/app/Resources/views/genus/show.html.twig
 @@ -17,6 +17,8 @@
                  <dd>{{ genus.funFact|markdownify }}</dd>
                  <dt>Recent Notes</dt>
@@ -11,43 +11,6 @@ index a476631..ad0d706 100644
  
                  <dt>Lead Scientists</dt>
                  <dd>
-diff --git a/php7/code/src/AppBundle/Controller/GenusController.php b/php7/code/src/AppBundle/Controller/GenusController.php
-index f72394c..0a6fa56 100644
---- a/php7/code/src/AppBundle/Controller/GenusController.php
-+++ b/php7/code/src/AppBundle/Controller/GenusController.php
-@@ -111,10 +111,13 @@ class GenusController extends Controller
-         $recentNotes = $em->getRepository('AppBundle:GenusNote')
-             ->findAllRecentNotesForGenus($genus);
- 
-+        $food = ['shrimp', 'clams', 'lobsters', 'shark'];
-+
-         return $this->render('genus/show.html.twig', array(
-             'genus' => $genus,
-             'funFact' => $funFact,
--            'recentNoteCount' => count($recentNotes)
-+            'recentNoteCount' => count($recentNotes),
-+            'recentlyAte' => $genus->feed($food),
-         ));
-     }
- 
-diff --git a/php7/code/src/AppBundle/Entity/Genus.php b/php7/code/src/AppBundle/Entity/Genus.php
-index 8398bcb..292418e 100644
---- a/php7/code/src/AppBundle/Entity/Genus.php
-+++ b/php7/code/src/AppBundle/Entity/Genus.php
-@@ -220,4 +220,13 @@ class Genus
-             GenusRepository::createExpertCriteria()
-         );
-     }
-+
-+    public function feed(array $food): string
-+    {
-+        if (count($food) === 0) {
-+            return sprintf('%s is looking at you in a funny way', $this->getName());
-+        }
-+
-+        return sprintf('%s recently ate: %s', $this->getName(), implode(', ', $food));
-+    }
- }
 diff --git a/php7/outline.md b/php7/outline.md
 index 3d4d96b..3d55d45 100644
 --- a/php7/outline.md
@@ -68,3 +31,40 @@ index 3d4d96b..3d55d45 100644
  * !!?? Was looking for a possible way to put an example, but there does not look to be any good places. Thinking about adding to `GenusController::show` something like `$food` array, call `Genus::feed(array $food)` which would provide concatenated string (`$genusName + recently ate + list of array values` and display it in `genus/show.html.twig`). When change `$food` to be an iterator from `ArrayObject` (http://be2.php.net/manual/en/class.arrayobject.php) which behaves similar to simple array, but would break the function because it's not an array. When change the function type hint from `array` to `iterable`, and show that it works (I guess, have not tried yet). Not the best example, but still stays in the same theme and shows how the feature works. Otherwise the alternative would be similar idea but in separate file (`iterate` function, simple array, simple array object iterator and show what just with array/Traversable only one of the calls works, while with `iterable` calling function with both variables works).
  
  ## Multi catch exception handling
+diff --git a/src/AppBundle/Controller/GenusController.php b/src/AppBundle/Controller/GenusController.php
+index f72394c..0a6fa56 100644
+--- a/src/AppBundle/Controller/GenusController.php
++++ b/src/AppBundle/Controller/GenusController.php
+@@ -111,10 +111,13 @@ class GenusController extends Controller
+         $recentNotes = $em->getRepository('AppBundle:GenusNote')
+             ->findAllRecentNotesForGenus($genus);
+ 
++        $food = ['shrimp', 'clams', 'lobsters', 'shark'];
++
+         return $this->render('genus/show.html.twig', array(
+             'genus' => $genus,
+             'funFact' => $funFact,
+-            'recentNoteCount' => count($recentNotes)
++            'recentNoteCount' => count($recentNotes),
++            'recentlyAte' => $genus->feed($food),
+         ));
+     }
+ 
+diff --git a/src/AppBundle/Entity/Genus.php b/src/AppBundle/Entity/Genus.php
+index 8398bcb..292418e 100644
+--- a/src/AppBundle/Entity/Genus.php
++++ b/src/AppBundle/Entity/Genus.php
+@@ -220,4 +220,13 @@ class Genus
+             GenusRepository::createExpertCriteria()
+         );
+     }
++
++    public function feed(array $food): string
++    {
++        if (count($food) === 0) {
++            return sprintf('%s is looking at you in a funny way', $this->getName());
++        }
++
++        return sprintf('%s recently ate: %s', $this->getName(), implode(', ', $food));
++    }
+ }

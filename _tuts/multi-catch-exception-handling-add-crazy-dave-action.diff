@@ -1,36 +1,3 @@
-diff --git a/php7/code/src/AppBundle/Controller/MainController.php b/php7/code/src/AppBundle/Controller/MainController.php
-index ae8b6ea..2579c56 100644
---- a/php7/code/src/AppBundle/Controller/MainController.php
-+++ b/php7/code/src/AppBundle/Controller/MainController.php
-@@ -2,6 +2,9 @@
- 
- namespace AppBundle\Controller;
- 
-+use AppBundle\Exception\NoCookieForYou;
-+use AppBundle\Exception\NoCookiesLeft;
-+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
- use Symfony\Bundle\FrameworkBundle\Controller\Controller;
- 
- class MainController extends Controller
-@@ -10,4 +13,16 @@ class MainController extends Controller
-     {
-         return $this->render('main/homepage.html.twig');
-     }
--}
-\ No newline at end of file
-+
-+    /**
-+     * @Route("/crazy-dave")
-+     */
-+    public function cookiesAction()
-+    {
-+        if (random_int(0, 1)) {
-+            throw new NoCookieForYou();
-+        }
-+
-+        throw new NoCookiesLeft();
-+    }
-+}
 diff --git a/php7/code/src/AppBundle/Exception/NoCookieForYou.php b/php7/code/src/AppBundle/Exception/NoCookieForYou.php
 new file mode 100644
 index 0000000..967d89e
@@ -90,3 +57,36 @@ index 8281d37..e1717f7 100644
  * !!?? Can't see any good place to introduce the feature. I see two choices for that. One would be to extend exception listener which catches two different exceptions with putting different texts on screen (to show the old way), say what if you want re-use the same catch code you can catch multiple exceptions without copy-pasting the code (show the new way). Then make some action which at random throws one of two exceptions. The other way would be using the same example (random exception, catching it), but done using the separate PHP script (like was done with errors as exceptions).
  
  ## Misc
+diff --git a/src/AppBundle/Controller/MainController.php b/src/AppBundle/Controller/MainController.php
+index ae8b6ea..2579c56 100644
+--- a/src/AppBundle/Controller/MainController.php
++++ b/src/AppBundle/Controller/MainController.php
+@@ -2,6 +2,9 @@
+ 
+ namespace AppBundle\Controller;
+ 
++use AppBundle\Exception\NoCookieForYou;
++use AppBundle\Exception\NoCookiesLeft;
++use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+ 
+ class MainController extends Controller
+@@ -10,4 +13,16 @@ class MainController extends Controller
+     {
+         return $this->render('main/homepage.html.twig');
+     }
+-}
+\ No newline at end of file
++
++    /**
++     * @Route("/crazy-dave")
++     */
++    public function cookiesAction()
++    {
++        if (random_int(0, 1)) {
++            throw new NoCookieForYou();
++        }
++
++        throw new NoCookiesLeft();
++    }
++}

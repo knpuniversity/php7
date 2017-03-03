@@ -1,16 +1,3 @@
-diff --git a/php7/code/src/AppBundle/Entity/Genus.php b/php7/code/src/AppBundle/Entity/Genus.php
-index a777454..0abfb15 100644
---- a/php7/code/src/AppBundle/Entity/Genus.php
-+++ b/php7/code/src/AppBundle/Entity/Genus.php
-@@ -133,7 +133,7 @@ class Genus
-         return $this->funFact;
-     }
- 
--    public function setFunFact(string $funFact)
-+    public function setFunFact(?string $funFact)
-     {
-         $this->funFact = $funFact;
-     }
 diff --git a/php7/outline.md b/php7/outline.md
 index b3e3bff..bdc5cd2 100644
 --- a/php7/outline.md
@@ -31,3 +18,16 @@ index b3e3bff..bdc5cd2 100644
  
  ## Void functions
  
+diff --git a/src/AppBundle/Entity/Genus.php b/src/AppBundle/Entity/Genus.php
+index a777454..0abfb15 100644
+--- a/src/AppBundle/Entity/Genus.php
++++ b/src/AppBundle/Entity/Genus.php
+@@ -133,7 +133,7 @@ class Genus
+         return $this->funFact;
+     }
+ 
+-    public function setFunFact(string $funFact)
++    public function setFunFact(?string $funFact)
+     {
+         $this->funFact = $funFact;
+     }

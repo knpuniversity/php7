@@ -1,20 +1,3 @@
-diff --git a/php7/code/src/AppBundle/Entity/Genus.php b/php7/code/src/AppBundle/Entity/Genus.php
-index 0abfb15..0ee7c90 100644
---- a/php7/code/src/AppBundle/Entity/Genus.php
-+++ b/php7/code/src/AppBundle/Entity/Genus.php
-@@ -133,9 +133,11 @@ class Genus
-         return $this->funFact;
-     }
- 
--    public function setFunFact(?string $funFact)
-+    public function setFunFact(?string $funFact): void
-     {
-         $this->funFact = $funFact;
-+
-+        return;
-     }
- 
-     public function getUpdatedAt()
 diff --git a/php7/outline.md b/php7/outline.md
 index bdc5cd2..b2e3a83 100644
 --- a/php7/outline.md
@@ -40,3 +23,20 @@ index bdc5cd2..b2e3a83 100644
  * You can still use the `return` statement if you need to stop function execution early
      - It just has to be an empty return statement `return;`
          + It's not necessary, but for example case add `return;` to the end of some setter to show how it would look like. It would be best to use it somewhere in function that quits on `if` statement, but in the current code there is no good method for it.
+diff --git a/src/AppBundle/Entity/Genus.php b/src/AppBundle/Entity/Genus.php
+index 0abfb15..0ee7c90 100644
+--- a/src/AppBundle/Entity/Genus.php
++++ b/src/AppBundle/Entity/Genus.php
+@@ -133,9 +133,11 @@ class Genus
+         return $this->funFact;
+     }
+ 
+-    public function setFunFact(?string $funFact)
++    public function setFunFact(?string $funFact): void
+     {
+         $this->funFact = $funFact;
++
++        return;
+     }
+ 
+     public function getUpdatedAt()

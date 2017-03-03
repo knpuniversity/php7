@@ -1,7 +1,34 @@
-diff --git a/php7/code/src/AppBundle/Entity/Genus.php b/php7/code/src/AppBundle/Entity/Genus.php
+diff --git a/php7/outline.md b/php7/outline.md
+index b4a888d..c147520 100644
+--- a/php7/outline.md
++++ b/php7/outline.md
+@@ -129,6 +129,22 @@ Refresh browser, and show that it throws an error
+ * Edit `Genus::setFunFact()` with `return;` (undo)
+ * Refresh page to show that it works again
+ 
++**Add type hints to all Genus methods**
++
++* Edit `Genus` to add type hints, return type hints, void functions
++* Can explain that you can remove phpDocs saying which value is returned as you can set it now in code (example `Genus::getSubFamily()` method). But leaving it for `Genus::getNotes()` because so far it's not possible to define that objects the collection contains
++* Can explain that a lot of type hints are nullable because our entity is not very strict (mostly due to being used in the form where `get*`/`set*` often use `null` value), but if wanted we could make it more strict removing nullable (example `Genus::[set|get]IsPublished()` which is strictly `bool` as we only set or get `true/false` values from them)
++* Might be worth mentioning that it's best to type hint against an interface (or to be sure it will return the same implementation every time). Example: `Genus::getGenusScientists()` returns `Doctrine\Common\Collections\ArrayCollection`, type hinting against it is fine if it's non-persisted entity, but if you tried to open a persisted entity it will fail because the method returns `Doctrine\ORM\PersistentCollection`, type hinting against `\Doctrine\Common\Collections\Collection` interface solves this problem.
++
++* Can show that our code is still working
++    - Open `http://localhost:8080/genus/new` in browser
++    - Open created genus
++    - Open `http://localhost:8080/login`
++    - Login with `weaverryan+1@gmail.com` / `iliketurtles`
++    - Press edit button on any of genuses in admin list
++    - Edit the form (example: Enter some fun fact like 'This is fun')
++        + Press save
++
+ ## Class constant visibility
+ 
+ * !! Went over all the code, and can't see a good example. The best one would be to take some "hard-coded" value, and use a constant for that (thought with the current code it's unnecessary).
+diff --git a/src/AppBundle/Entity/Genus.php b/src/AppBundle/Entity/Genus.php
 index 0ee7c90..8398bcb 100644
---- a/php7/code/src/AppBundle/Entity/Genus.php
-+++ b/php7/code/src/AppBundle/Entity/Genus.php
+--- a/src/AppBundle/Entity/Genus.php
++++ b/src/AppBundle/Entity/Genus.php
 @@ -5,6 +5,7 @@ namespace AppBundle\Entity;
  
  use AppBundle\Repository\GenusRepository;
@@ -149,30 +176,3 @@ index 0ee7c90..8398bcb 100644
      {
          return $this->getGenusScientists()->matching(
              GenusRepository::createExpertCriteria()
-diff --git a/php7/outline.md b/php7/outline.md
-index b4a888d..c147520 100644
---- a/php7/outline.md
-+++ b/php7/outline.md
-@@ -129,6 +129,22 @@ Refresh browser, and show that it throws an error
- * Edit `Genus::setFunFact()` with `return;` (undo)
- * Refresh page to show that it works again
- 
-+**Add type hints to all Genus methods**
-+
-+* Edit `Genus` to add type hints, return type hints, void functions
-+* Can explain that you can remove phpDocs saying which value is returned as you can set it now in code (example `Genus::getSubFamily()` method). But leaving it for `Genus::getNotes()` because so far it's not possible to define that objects the collection contains
-+* Can explain that a lot of type hints are nullable because our entity is not very strict (mostly due to being used in the form where `get*`/`set*` often use `null` value), but if wanted we could make it more strict removing nullable (example `Genus::[set|get]IsPublished()` which is strictly `bool` as we only set or get `true/false` values from them)
-+* Might be worth mentioning that it's best to type hint against an interface (or to be sure it will return the same implementation every time). Example: `Genus::getGenusScientists()` returns `Doctrine\Common\Collections\ArrayCollection`, type hinting against it is fine if it's non-persisted entity, but if you tried to open a persisted entity it will fail because the method returns `Doctrine\ORM\PersistentCollection`, type hinting against `\Doctrine\Common\Collections\Collection` interface solves this problem.
-+
-+* Can show that our code is still working
-+    - Open `http://localhost:8080/genus/new` in browser
-+    - Open created genus
-+    - Open `http://localhost:8080/login`
-+    - Login with `weaverryan+1@gmail.com` / `iliketurtles`
-+    - Press edit button on any of genuses in admin list
-+    - Edit the form (example: Enter some fun fact like 'This is fun')
-+        + Press save
-+
- ## Class constant visibility
- 
- * !! Went over all the code, and can't see a good example. The best one would be to take some "hard-coded" value, and use a constant for that (thought with the current code it's unnecessary).
