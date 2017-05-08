@@ -1,0 +1,14 @@
+diff --git a/play-exceptions.php b/play-exceptions.php
+index f87e60f..81aaad8 100644
+--- a/play-exceptions.php
++++ b/play-exceptions.php
+@@ -1,4 +1,8 @@
+ <?php
+-undefinedFunction();
++try {
++    undefinedFunction();
++} catch (\Throwable $error) {
++    echo 'Now if you write bad code, you can catch it! ' . $error->getMessage();
++}
+ 
+ echo "\n\nContinue processing file...";

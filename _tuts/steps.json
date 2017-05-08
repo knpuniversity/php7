@@ -11,6 +11,11 @@
             "description": null
         },
         {
+            "id": "intro-catch-the-error",
+            "name": "Intro: Catch the error",
+            "description": null
+        },
+        {
             "id": "scalar-types-add-string-type-hint",
             "name": "Scalar types: Add string type hint",
             "description": null
@@ -136,5 +141,5 @@
             "description": null
         }
     ],
-    "sha": "5b4f0394a5a995bcd20a49aefb10cd9841b52ecd"
+    "sha": "cff6a1664488373111f557609c811ec6d3966439"
 }
