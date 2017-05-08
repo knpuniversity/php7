@@ -1,18 +1,16 @@
 diff --git a/src/AppBundle/Controller/GenusController.php b/src/AppBundle/Controller/GenusController.php
-index 92f96e1..e5ff8bb 100644
+index 9dea390..5514947 100644
 --- a/src/AppBundle/Controller/GenusController.php
 +++ b/src/AppBundle/Controller/GenusController.php
-@@ -21,10 +21,11 @@ class GenusController extends Controller
+@@ -21,9 +21,10 @@ class GenusController extends Controller
      public function typesExampleAction()
      {
          $genus = new Genus();
 -        $genus->setName(4);
--
--        dump($genus);die;
 +        $genus->setName('Octopus');
  
-+        dump($genus);
-+        dump($genus->getName());
+-        var_dump($genus);die;
++        var_dump($genus->getName());
 +        die;
      }
  

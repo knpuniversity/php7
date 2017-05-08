@@ -1,12 +1,13 @@
 diff --git a/src/AppBundle/Controller/GenusController.php b/src/AppBundle/Controller/GenusController.php
-index e5ff8bb..63e2a74 100644
+index 5514947..4351b21 100644
 --- a/src/AppBundle/Controller/GenusController.php
 +++ b/src/AppBundle/Controller/GenusController.php
-@@ -25,6 +25,7 @@ class GenusController extends Controller
+@@ -23,7 +23,7 @@ class GenusController extends Controller
+         $genus = new Genus();
+         $genus->setName('Octopus');
  
-         dump($genus);
-         dump($genus->getName());
-+        dump($genus->getFunFact());
+-        var_dump($genus->getName());
++        var_dump($genus->getFunFact());
          die;
      }
  

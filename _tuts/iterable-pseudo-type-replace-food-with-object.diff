@@ -1,8 +1,8 @@
 diff --git a/src/AppBundle/Controller/GenusController.php b/src/AppBundle/Controller/GenusController.php
-index a8d068f..da6c674 100644
+index 9215f9c..d9c1f95 100644
 --- a/src/AppBundle/Controller/GenusController.php
 +++ b/src/AppBundle/Controller/GenusController.php
-@@ -110,7 +110,9 @@ class GenusController extends Controller
+@@ -105,7 +105,9 @@ class GenusController extends Controller
          $recentNotes = $em->getRepository('AppBundle:GenusNote')
              ->findAllRecentNotesForGenus($genus);
  
