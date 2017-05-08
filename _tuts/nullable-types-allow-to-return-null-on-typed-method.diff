@@ -1,5 +1,5 @@
 diff --git a/src/AppBundle/Controller/GenusController.php b/src/AppBundle/Controller/GenusController.php
-index 05eeafd..6a1c0b2 100644
+index 63e2a74..6b0c1d5 100644
 --- a/src/AppBundle/Controller/GenusController.php
 +++ b/src/AppBundle/Controller/GenusController.php
 @@ -25,6 +25,13 @@ class GenusController extends Controller
@@ -14,8 +14,8 @@ index 05eeafd..6a1c0b2 100644
 +        $genus->setFunFact(null);
 +
          dump($genus->getFunFact());
- 
-         return new Response('<html><body>Testing PHP7</body></html>');
+         die;
+     }
 diff --git a/src/AppBundle/Entity/Genus.php b/src/AppBundle/Entity/Genus.php
 index e94a833..2ca2c21 100644
 --- a/src/AppBundle/Entity/Genus.php

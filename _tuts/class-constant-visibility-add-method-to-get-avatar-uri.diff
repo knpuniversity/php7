@@ -1,8 +1,8 @@
 diff --git a/src/AppBundle/Controller/GenusController.php b/src/AppBundle/Controller/GenusController.php
-index bc58cb4..f72394c 100644
+index e15037e..f69c0ef 100644
 --- a/src/AppBundle/Controller/GenusController.php
 +++ b/src/AppBundle/Controller/GenusController.php
-@@ -130,7 +130,7 @@ class GenusController extends Controller
+@@ -129,7 +129,7 @@ class GenusController extends Controller
              $notes[] = [
                  'id' => $note->getId(),
                  'username' => $note->getUsername(),

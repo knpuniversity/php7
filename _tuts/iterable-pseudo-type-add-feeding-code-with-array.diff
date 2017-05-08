@@ -12,10 +12,10 @@ index a476631..ad0d706 100644
                  <dt>Lead Scientists</dt>
                  <dd>
 diff --git a/src/AppBundle/Controller/GenusController.php b/src/AppBundle/Controller/GenusController.php
-index f72394c..0a6fa56 100644
+index f69c0ef..a8d068f 100644
 --- a/src/AppBundle/Controller/GenusController.php
 +++ b/src/AppBundle/Controller/GenusController.php
-@@ -111,10 +111,13 @@ class GenusController extends Controller
+@@ -110,10 +110,13 @@ class GenusController extends Controller
          $recentNotes = $em->getRepository('AppBundle:GenusNote')
              ->findAllRecentNotesForGenus($genus);
  
