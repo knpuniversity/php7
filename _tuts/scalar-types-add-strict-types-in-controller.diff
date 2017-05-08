@@ -1,0 +1,10 @@
+diff --git a/src/AppBundle/Controller/GenusController.php b/src/AppBundle/Controller/GenusController.php
+index 6df94bb..ae81af8 100644
+--- a/src/AppBundle/Controller/GenusController.php
++++ b/src/AppBundle/Controller/GenusController.php
+@@ -1,4 +1,5 @@
+ <?php
++declare(strict_types = 1);
+ 
+ namespace AppBundle\Controller;
+ 

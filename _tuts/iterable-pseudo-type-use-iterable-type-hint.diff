@@ -1,0 +1,13 @@
+diff --git a/src/AppBundle/Entity/Genus.php b/src/AppBundle/Entity/Genus.php
+index 292418e..1aadb7a 100644
+--- a/src/AppBundle/Entity/Genus.php
++++ b/src/AppBundle/Entity/Genus.php
+@@ -221,7 +221,7 @@ class Genus
+         );
+     }
+ 
+-    public function feed(array $food): string
++    public function feed(iterable $food): string
+     {
+         if (count($food) === 0) {
+             return sprintf('%s is looking at you in a funny way', $this->getName());

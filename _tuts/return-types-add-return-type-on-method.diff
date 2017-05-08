@@ -1,0 +1,13 @@
+diff --git a/src/AppBundle/Entity/Genus.php b/src/AppBundle/Entity/Genus.php
+index 77c6b25..e0541cc 100644
+--- a/src/AppBundle/Entity/Genus.php
++++ b/src/AppBundle/Entity/Genus.php
+@@ -95,7 +95,7 @@ class Genus
+         return $this->id;
+     }
+ 
+-    public function getName()
++    public function getName(): string
+     {
+         return 5;
+         return $this->name;

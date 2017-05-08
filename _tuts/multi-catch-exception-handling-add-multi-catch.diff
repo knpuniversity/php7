@@ -1,0 +1,15 @@
+diff --git a/src/AppBundle/Controller/MainController.php b/src/AppBundle/Controller/MainController.php
+index 8510c5f..83f5d5d 100644
+--- a/src/AppBundle/Controller/MainController.php
++++ b/src/AppBundle/Controller/MainController.php
+@@ -26,9 +26,7 @@ class MainController extends Controller
+             }
+ 
+             throw new NoCookiesLeft();
+-        } catch (NoCookieForYou $e) {
+-            $whisper = sprintf('Crazy Dave whispered "%s"', $e->getMessage());
+-        } catch (NoCookiesLeft $e) {
++        } catch (NoCookieForYou | NoCookiesLeft $e) {
+             $whisper = sprintf('Crazy Dave whispered "%s"', $e->getMessage());
+         }
+ 

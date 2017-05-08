@@ -1,0 +1,25 @@
+diff --git a/src/AppBundle/Controller/GenusController.php b/src/AppBundle/Controller/GenusController.php
+index a696f1f..05eeafd 100644
+--- a/src/AppBundle/Controller/GenusController.php
++++ b/src/AppBundle/Controller/GenusController.php
+@@ -25,6 +25,7 @@ class GenusController extends Controller
+ 
+         dump($genus);
+         dump($genus->getName());
++        dump($genus->getFunFact());
+ 
+         return new Response('<html><body>Testing PHP7</body></html>');
+     }
+diff --git a/src/AppBundle/Entity/Genus.php b/src/AppBundle/Entity/Genus.php
+index 339da35..e94a833 100644
+--- a/src/AppBundle/Entity/Genus.php
++++ b/src/AppBundle/Entity/Genus.php
+@@ -128,7 +128,7 @@ class Genus
+         $this->speciesCount = $speciesCount;
+     }
+ 
+-    public function getFunFact()
++    public function getFunFact(): string
+     {
+         return $this->funFact;
+     }

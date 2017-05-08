@@ -1,0 +1,13 @@
+diff --git a/src/AppBundle/Entity/GenusNote.php b/src/AppBundle/Entity/GenusNote.php
+index 355591e..287ffa2 100644
+--- a/src/AppBundle/Entity/GenusNote.php
++++ b/src/AppBundle/Entity/GenusNote.php
+@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
+  */
+ class GenusNote
+ {
+-    const AVATAR_FILE_PREFIX = '/images/';
++    private const AVATAR_FILE_PREFIX = '/images/';
+ 
+     /**
+      * @ORM\Id

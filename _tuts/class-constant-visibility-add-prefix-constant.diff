@@ -1,0 +1,26 @@
+diff --git a/src/AppBundle/Controller/GenusController.php b/src/AppBundle/Controller/GenusController.php
+index 6a1c0b2..bc58cb4 100644
+--- a/src/AppBundle/Controller/GenusController.php
++++ b/src/AppBundle/Controller/GenusController.php
+@@ -130,7 +130,7 @@ class GenusController extends Controller
+             $notes[] = [
+                 'id' => $note->getId(),
+                 'username' => $note->getUsername(),
+-                'avatarUri' => '/images/'.$note->getUserAvatarFilename(),
++                'avatarUri' => GenusNote::AVATAR_FILE_PREFIX.$note->getUserAvatarFilename(),
+                 'note' => $note->getNote(),
+                 'date' => $note->getCreatedAt()->format('M d, Y')
+             ];
+diff --git a/src/AppBundle/Entity/GenusNote.php b/src/AppBundle/Entity/GenusNote.php
+index df67408..355591e 100644
+--- a/src/AppBundle/Entity/GenusNote.php
++++ b/src/AppBundle/Entity/GenusNote.php
+@@ -10,6 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
+  */
+ class GenusNote
+ {
++    const AVATAR_FILE_PREFIX = '/images/';
++
+     /**
+      * @ORM\Id
+      * @ORM\GeneratedValue(strategy="AUTO")

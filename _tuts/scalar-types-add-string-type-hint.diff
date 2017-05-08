@@ -1,0 +1,37 @@
+diff --git a/src/AppBundle/Controller/GenusController.php b/src/AppBundle/Controller/GenusController.php
+index 302a262..6df94bb 100644
+--- a/src/AppBundle/Controller/GenusController.php
++++ b/src/AppBundle/Controller/GenusController.php
+@@ -15,6 +15,19 @@ use Symfony\Component\HttpFoundation\Response;
+ class GenusController extends Controller
+ {
+     /**
++     * @Route("/genus/types-example")
++     */
++    public function typesExampleAction()
++    {
++        $genus = new Genus();
++        $genus->setName(4);
++
++        dump($genus);
++
++        return new Response('<html><body>Testing PHP7</body></html>');
++    }
++
++    /**
+      * @Route("/genus/new")
+      */
+     public function newAction()
+diff --git a/src/AppBundle/Entity/Genus.php b/src/AppBundle/Entity/Genus.php
+index 9d95676..81583a9 100644
+--- a/src/AppBundle/Entity/Genus.php
++++ b/src/AppBundle/Entity/Genus.php
+@@ -99,7 +99,7 @@ class Genus
+         return $this->name;
+     }
+ 
+-    public function setName($name)
++    public function setName(string $name)
+     {
+         $this->name = $name;
+     }

@@ -1,0 +1,140 @@
+{
+    "steps": [
+        {
+            "id": "start",
+            "name": "start",
+            "description": null
+        },
+        {
+            "id": "intro-errors-as-exceptions",
+            "name": "Intro: Errors as exceptions",
+            "description": null
+        },
+        {
+            "id": "scalar-types-add-string-type-hint",
+            "name": "Scalar types: Add string type hint",
+            "description": null
+        },
+        {
+            "id": "scalar-types-add-strict-types-in-entity",
+            "name": "Scalar types: Add strict_types in entity",
+            "description": null
+        },
+        {
+            "id": "scalar-types-add-strict-types-in-controller",
+            "name": "Scalar types: Add strict_types in controller",
+            "description": null
+        },
+        {
+            "id": "return-types-return-wrong-type-value-on-untyped-method",
+            "name": "Return types: Return wrong type value on untyped method",
+            "description": null
+        },
+        {
+            "id": "return-types-add-return-type-on-method",
+            "name": "Return types: Add return type on method",
+            "description": null
+        },
+        {
+            "id": "return-types-clean-up-return-typed-method",
+            "name": "Return types: Clean up return typed method",
+            "description": null
+        },
+        {
+            "id": "nullable-types-return-null-on-typed-method",
+            "name": "Nullable types: Return null on typed method",
+            "description": null
+        },
+        {
+            "id": "nullable-types-allow-to-return-null-on-typed-method",
+            "name": "Nullable types: Allow to return null on typed method",
+            "description": null
+        },
+        {
+            "id": "nullable-types-add-typed-argument-to-method-being-set-as-null",
+            "name": "Nullable types: Add typed argument to method being set as null",
+            "description": null
+        },
+        {
+            "id": "nullable-types-allow-null-argument-to-to-typed-method",
+            "name": "Nullable types: Allow null argument to to typed method",
+            "description": null
+        },
+        {
+            "id": "void-functions-add-void-function",
+            "name": "Void functions: Add void function",
+            "description": null
+        },
+        {
+            "id": "void-functions-failing-void-function-by-returning-null",
+            "name": "Void functions: Failing void function by returning null",
+            "description": null
+        },
+        {
+            "id": "void-functions-fix-failing-void-function",
+            "name": "Void functions: Fix failing void function",
+            "description": null
+        },
+        {
+            "id": "add-type-hints-to-all-genus-methods",
+            "name": "Add type hints to all Genus methods",
+            "description": null
+        },
+        {
+            "id": "class-constant-visibility-add-prefix-constant",
+            "name": "Class constant visibility: Add prefix constant",
+            "description": null
+        },
+        {
+            "id": "class-constant-visibility-change-constant-visibility-to-private",
+            "name": "Class constant visibility: Change constant visibility to private",
+            "description": null
+        },
+        {
+            "id": "class-constant-visibility-add-method-to-get-avatar-uri",
+            "name": "Class constant visibility: Add method to get avatar uri",
+            "description": null
+        },
+        {
+            "id": "iterable-pseudo-type-add-feeding-code-with-array",
+            "name": "Iterable pseudo-type: Add feeding code with array",
+            "description": null
+        },
+        {
+            "id": "iterable-pseudo-type-replace-food-with-object",
+            "name": "Iterable pseudo-type: Replace food with object",
+            "description": null
+        },
+        {
+            "id": "iterable-pseudo-type-use-iterable-type-hint",
+            "name": "Iterable pseudo-type: Use iterable type hint",
+            "description": null
+        },
+        {
+            "id": "iterable-pseudo-type-fix-implode-on-object",
+            "name": "Iterable pseudo-type: Fix implode on object",
+            "description": null
+        },
+        {
+            "id": "multi-catch-exception-handling-add-crazy-dave-action",
+            "name": "Multi catch exception handling: Add Crazy Dave action",
+            "description": null
+        },
+        {
+            "id": "multi-catch-exception-handling-wrap-action-in-try-catch",
+            "name": "Multi catch exception handling: Wrap action in try-catch",
+            "description": null
+        },
+        {
+            "id": "multi-catch-exception-handling-add-multi-catch",
+            "name": "Multi catch exception handling: Add multi catch",
+            "description": null
+        },
+        {
+            "id": "finish",
+            "name": "finish",
+            "description": null
+        }
+    ],
+    "sha": "5b4f0394a5a995bcd20a49aefb10cd9841b52ecd"
+}

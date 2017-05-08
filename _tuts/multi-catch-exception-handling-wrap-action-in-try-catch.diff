@@ -1,0 +1,34 @@
+diff --git a/src/AppBundle/Controller/MainController.php b/src/AppBundle/Controller/MainController.php
+index 2579c56..8510c5f 100644
+--- a/src/AppBundle/Controller/MainController.php
++++ b/src/AppBundle/Controller/MainController.php
+@@ -6,6 +6,7 @@ use AppBundle\Exception\NoCookieForYou;
+ use AppBundle\Exception\NoCookiesLeft;
+ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
++use Symfony\Component\HttpFoundation\Response;
+ 
+ class MainController extends Controller
+ {
+@@ -19,10 +20,18 @@ class MainController extends Controller
+      */
+     public function cookiesAction()
+     {
+-        if (random_int(0, 1)) {
+-            throw new NoCookieForYou();
++        try {
++            if (random_int(0, 1)) {
++                throw new NoCookieForYou();
++            }
++
++            throw new NoCookiesLeft();
++        } catch (NoCookieForYou $e) {
++            $whisper = sprintf('Crazy Dave whispered "%s"', $e->getMessage());
++        } catch (NoCookiesLeft $e) {
++            $whisper = sprintf('Crazy Dave whispered "%s"', $e->getMessage());
+         }
+ 
+-        throw new NoCookiesLeft();
++        return new Response('<html><body>'.$whisper.'</body></html>');
+     }
+ }

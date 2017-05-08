@@ -1,0 +1,13 @@
+diff --git a/src/AppBundle/Entity/Genus.php b/src/AppBundle/Entity/Genus.php
+index 2ca2c21..a777454 100644
+--- a/src/AppBundle/Entity/Genus.php
++++ b/src/AppBundle/Entity/Genus.php
+@@ -133,7 +133,7 @@ class Genus
+         return $this->funFact;
+     }
+ 
+-    public function setFunFact($funFact)
++    public function setFunFact(string $funFact)
+     {
+         $this->funFact = $funFact;
+     }

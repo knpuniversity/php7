@@ -1,0 +1,28 @@
+diff --git a/src/AppBundle/Controller/GenusController.php b/src/AppBundle/Controller/GenusController.php
+index ae81af8..a696f1f 100644
+--- a/src/AppBundle/Controller/GenusController.php
++++ b/src/AppBundle/Controller/GenusController.php
+@@ -21,9 +21,10 @@ class GenusController extends Controller
+     public function typesExampleAction()
+     {
+         $genus = new Genus();
+-        $genus->setName(4);
++        $genus->setName('Octopus');
+ 
+         dump($genus);
++        dump($genus->getName());
+ 
+         return new Response('<html><body>Testing PHP7</body></html>');
+     }
+diff --git a/src/AppBundle/Entity/Genus.php b/src/AppBundle/Entity/Genus.php
+index 45e2f77..77c6b25 100644
+--- a/src/AppBundle/Entity/Genus.php
++++ b/src/AppBundle/Entity/Genus.php
+@@ -97,6 +97,7 @@ class Genus
+ 
+     public function getName()
+     {
++        return 5;
+         return $this->name;
+     }
+ 
