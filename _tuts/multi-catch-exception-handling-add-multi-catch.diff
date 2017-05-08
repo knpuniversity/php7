@@ -1,8 +1,8 @@
 diff --git a/src/AppBundle/Controller/MainController.php b/src/AppBundle/Controller/MainController.php
-index 8510c5f..83f5d5d 100644
+index 8510c5f..a63f5d3 100644
 --- a/src/AppBundle/Controller/MainController.php
 +++ b/src/AppBundle/Controller/MainController.php
-@@ -26,9 +26,7 @@ class MainController extends Controller
+@@ -26,12 +26,10 @@ class MainController extends Controller
              }
  
              throw new NoCookiesLeft();
@@ -13,3 +13,7 @@ index 8510c5f..83f5d5d 100644
              $whisper = sprintf('Crazy Dave whispered "%s"', $e->getMessage());
          }
  
+-        return new Response('<html><body>'.$whisper.'</body></html>');
++        return new Response(sprintf('<html><body>%s</body></html>', $whisper));
+     }
+ }
