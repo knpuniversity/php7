@@ -134,11 +134,6 @@
             "id": "multi-catch-exception-handling-add-multi-catch",
             "name": "Multi catch exception handling: Add multi catch",
             "description": null
-        },
-        {
-            "id": "finish",
-            "name": "finish",
-            "description": null
         }
     ],
     "sha": "cff6a1664488373111f557609c811ec6d3966439"
