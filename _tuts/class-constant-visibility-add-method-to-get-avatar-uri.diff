@@ -12,7 +12,7 @@ index a721881..7725aed 100644
                  'date' => $note->getCreatedAt()->format('M d, Y')
              ];
 diff --git a/src/AppBundle/Entity/GenusNote.php b/src/AppBundle/Entity/GenusNote.php
-index 6dd30c2..abacb5b 100644
+index 6dd30c2..576574d 100644
 --- a/src/AppBundle/Entity/GenusNote.php
 +++ b/src/AppBundle/Entity/GenusNote.php
 @@ -12,6 +12,8 @@ class GenusNote
@@ -30,13 +30,13 @@ index 6dd30c2..abacb5b 100644
  
 +    public function getUserAvatarUri(): string
 +    {
-+        $filename = static::BLANK_AVATAR_FILENAME;
++        $filename = $this->getUserAvatarFilename();
 +
-+        if ($this->getUserAvatarFilename() !== null) {
-+            $filename = $this->getUserAvatarFilename();
++        if (!$filename) {
++            $filename = self::BLANK_AVATAR_FILENAME;
 +        }
 +
-+        return static::AVATAR_FILE_PREFIX.'/'.$filename;
++        return self::AVATAR_FILE_PREFIX.'/'.$filename;
 +    }
 +
      public function setUserAvatarFilename($userAvatarFilename)
