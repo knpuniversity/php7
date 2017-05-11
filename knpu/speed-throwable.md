@@ -1,0 +1,20 @@
+# Speed Throwable
+
+Hey, guys. Not to start things off on a bad note, but look, PHP 5 is dead. It's not even supported anymore. If you're still using PHP 5, you need to move on. This tutorial is all about why, cool reasons for you, and also, reasons that you could take up to your manager so you can convince them that it's a big cost savings awesome thing. PHP 7 is great. It's a higher number than PHP 5 so it must be great. It's even two numbers higher. They skipped 6 because PHP 7 is so great, or maybe it's because they messed up PHP 6. Let's say that they skipped PHP 6 because 7 is so amazing.
+
+This tutorial's about covering the important stuff, not the crap and garbage. You can spend hours reading the change log about PHP 7. That means that we will not be talking about the spaceship operator because even to this day, I have never used it. Yes, I know, it has a cool name, spaceship operator, but unless it's going to actually come to my house, beam me up, and take me to the grocery store, I'm not interested.
+
+What is important with PHP 7? Honestly, the biggest point is performance. PHP 7 gives you a huge performance boost. Zend, to advertise things, made a cool looking infographic with a bunch of different graphs, and basically, if you look at the graphs, you're going to see that PHP 7 is super, super fast. That's what you take to your manager. You can say, "Hey, when we go to production, our memory, our CPU, it's going to go way down. Our pages are going to be faster and we can turn off 10 of our servers."
+
+Obviously, there's a lot in the code that changed, too. We are going to try those things hands-on. As always, definitely code along with me and try this stuff out. Download the course code from this page, unzip it, and you'll find a start directory with the same code that you see here. You can follow along the readme.md file to get things set up. The last step will be to find your favorite terminal, go to the directory, and run php bin/console server:run to start the built-in web server. You can load that up on localhost:8000.
+
+This is AquaNote, a project that we've been working on in our Symphony series. It's not important. It's just a nice skeleton to start with. The first thing I'm going to talk about in PHP 7 is real, proper, error handling. In the readme project, I'm going to create a new file called play-exceptions.php. Here, we're just going to write some really bad code. We're going to call some undefined function, and below I'll write continue processing file, even though we know that that will not continue processing the file. We know that this is going to die.
+
+Flip over to your terminal, open a new tab, and run PHP play-exceptions. PHP fatal error. In PHP 5, if you wanted to handle an actual, in PHP we have exceptions which are nice. You can throw exceptions. You can catch exceptions. Then, there are errors which are weird and they're hard to deal with. If you want to catch them, you need to work with the error handler. In PHP 7, that's not the case anymore. You can now catch errors.
+
+It looks like this. Looks like a normal try catch block. We say try, then we're going to catch\throwable. We're going to talk more about that in a second. Down here, and prove it's working. Now it means if you write bad code, you can catch it, and even print out the error message.
+
+This time, when we flip back, try it again, it actually runs. Errors were made to work correctly in PHP 7. Now, this throwable thing, filed command, you can see it's actually an interface. The deal is, we still have the exception class. There's also an error class. Both exception and error implement throwable. If you want to catch both exceptions or errors, then you want to catch throwable. If you only want to catch exceptions, you should catch the exception class. If you only want to catch errors, you can catch the error class.
+
+Like with exceptions, there are also different types of errors. For example, there is the type error, which is thrown when you're passing an argument of a wrong type to a function. We're going to talk about typing next.
+
