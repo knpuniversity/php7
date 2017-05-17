@@ -1,14 +1,56 @@
 # Private Constants
 
-Okay enough with type hints and return types. PHP 7.1 added a cool feature with constants that we can actually control their visibility.
+Okay enough with type hints and return types! PHP 7.1 added another cool feature
+for class constants: we can finally make them private!
 
-So in Genus Controller find, "getNotesAction." This is actually used by an AJAX call to load notes at the bottom of any Genus Show Page. So for example, if I go to, "/genus" and click on one of the Genuses, you can see down here at the bottom, you see a bunch of notes and you see this avatar right here works because it's making AJAX call and its using this, "avatarUri."
+In `GenusController` find, `getNotesAction()`. This is used by an AJAX call to load
+notes that appear at the bottom of the genus show page. For example, go to `/genus`
+and click on one of them. Bam! At the bottom, an AJAX call loads a list of
+notes, complete with an avatar. The comes from the `avatarUri` field that's returned.
 
-Now, checkout this, '/images/' that should look a little weird to you. All of our images are stored in that directory, and that's fine. But this is a perfect use case for a constant instead of just having this random string hanging around. So lets go to, "GenusNote" which is what we're actually rendering on this page. And on the top we're going to add a new constant, "const AVATA_FILE_PREFIX = '/images';" And then of course instead of our GenusController we can use that. We can say, "GenusNote::AVATAR_FILE_PREFIX." And we got it.
+Look at the `/images/` part: that looks funny to me. All of our images are stored
+in that directory, and that's fine. But I hate having random strings like this in
+my code. This is a perfect place to use... drum roll... a constant!
 
-And when we refresh the page and wait just a second, yep,  everything's still nice. So let's suppose this is great, but honestly this is still a lot of work to have on our controller. I should be able to call a method on my GenusNote and just have it do this for me. Which means I don't want the avatar file prefix to be public anymore. I want to force the user to use this method. So in PHP 7.1 we can add, "private const" and it works exactly like you expect. Meaning, if we refresh our AJAX calls are gonna start failing. And you can see that down here in the web devo tool bar these are all going to 500 errors. If I open the profiler for one of them and hit, "Exceptions" you can see, "Cannot access private const from the controller."
+Open `GenusNote`, which is the object we're rendering on this page. Add a new constant:
+`const AVATAR_FILE_PREFIX = '/images';`. Then, in the controller, use this:
+`GenusNote::AVATAR_FILE_PREFIX`.
 
-Cool. So now that I can't use that constant anymore, I'll be looking for a public function to use. So down here let's make a new, "public function.getUserAvatarUri()"  and we'll even add an nice return type to this on the string. I'm gonna make that always return a string not knowable. Because I'm also going to say, "Well what if there is no user avatar file name for some reason for this GenusNote?" Well let's give them a default one. So I'm actually gonna go up to the top again and make another, "private const" we'll call this, "BLANK_AVATAR_FILENAME = 'blank.jpg'." We'll pretend like we have a blank.jpg that's used whenever a note doesn't have an avatar file name.
+So far, this is *all* stuff we've seen before. And when we refresh... yep! Everything
+still loads.
 
-So down here we can now say, "$filename = $this->getUserAvatarFilename();". And, "if (!$filename) { $filename = self::BLANK_AVATAR_FILENAME"  because of course we can reference our own constants and at the bottom we'll, "returN.self::AVATAR_FILE_PREFIX.'/'$filename;" And then we can update the controller to be a lot simpler than before. You can see if I had tried to use that my editor is yelling at me. So I say, "okay there must be at better way to do it." And then I find the, "getUserAvatarUri()" method. And it makes my life better. When we Refresh we are once again getting our notes at the bottom. Love it.
+## Private Constants
 
+This is an improvement... but it would be even *better* if I could call a method
+on `GenusNote()` to get the complete `avatarUri` string, instead of calculating it
+here in my controller. In other words, I *don't* want anyone to use our constant
+anymore: we're going to add a public *method* instead.
+
+In PHP 7.1, we can say `private const`. Now, accessing that constant from outside
+this class is illegal! That means, if we refresh, our AJAX calls are failing! On
+the web debug toolbar, yep! You can see the 500 errors! If I open the profiler and
+click "Exception", we see
+
+> Cannot access private const from the controller
+
+Awesome! So now that I can't use the constant anymore, I'll be looking for a public
+function to use instead. In `GenusNote`, add a `public function getUserAvatarUri()`.
+Hey! We're PHP 7 pros now, so add a `string` return type.
+
+Before we add the logic, let's make things fancier. Suppose that *sometimes* there
+is *not* a `userAvatarFilename` value for a note. If that's true, let's show a default
+avatar image.
+
+Back at the top, add another `private const BLANK_AVATAR_FILENAME = 'blank.jpg'`.
+We'll pretend that we have a `blank.jpg` file that should be used when there's no
+avatar.
+
+Back in the new method, add `$filename = $this->getUserAvatarFilename();`. And,
+`if (!$filename)`, then `$filename = self::BLANK_AVATAR_FILENAME`... because we
+*can* access the private constant from inside the class. Finish the method with
+`return self::AVATAR_FILE_PREFIX.'/'.$filename;`.
+
+Nice! Back in the controller, we're still accessing the private constant, which is
+*super* obvious. That'll push me to use the public function `getUserAvatarUri()`.
+
+Refresh one more time! Love it!

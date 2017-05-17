@@ -1,12 +1,69 @@
 # Return Types
 
-So PHP 7 added scalar type and it's cool, but it also added return types, which didn't exist at all, even for objects. The ability to say that this method returns a string or an object, and it's just as cool.
+PHP 7 added scalar type-hinting. But it *also* added - *finally* - return types.
+These didn't exist at *all* in PHP 5, not even for objects. This gives us the ability
+to say that this method returns a string and that method returns some object. I
+love return types.
 
-So in our control, let's fix our code first. We'll say genus, air set, name octopus and now I'm going to actually print out genus, arrow, get name, down here because I want to add a return type to get name. We know that this should return a string but right now, technically, you can return anything. Like, what if we did some logic inside of here and somehow we accidentally returned five. Well, not surprisingly, right now, the way PHP works, that's going to return the integer five. So we have a get name method that should be a string but is instead returning an integer, lame.
+Start in `GenusController`: let's fix our code first. Say `$genus->setName('Octopus')`.
+Now, dump `$genus->getName()`.
 
-So, to add a return type after the method you say colon and then you say the type, string, and of course that could also be a class name. And you can immediately see PHP storm is angry and if you refresh PHP itself, it is super angry. Type error, return value of get name must be of the type string, integer returned. Now, here's the interesting thing, remember with scalar type hinting there's weak mode verses strict mode and the same exists for return types. What I mean is that, if we went into weak mode then instead of throwing an error, it would just try to turn the number ... the integer five, into a string. But here's the trick, in this case, they use strict, that's important because strict types, that's important, is the one on genus. If you remove the declare script types on genus and then refresh, it works.
+*We* know that this should return a string... but technically... it could return
+anything. Like, what if we get crazy and just `return 5`.
 
-Now that seems weird at first, since last time it was the controller one. I'll put that back. It actually does make sense. You need to have strict types whenever the value is being controlled. In this case, the value ... the return value of get name is something that we are calculating inside of genus so because we have strict types inside of genus, it's requiring us to write code to create the right type. Where as with set name the value is being created outside of this class inside of genus controller, so the strict typing is added there. I know, it's a little weird at first.
+What happens? Well, no surprise... it returns 5, an *integer*. Yep, we have a method
+that should return a string, but is instead returning an integer. Lame!
 
-So inside genus, let's fix this by saying this arrow name, like normal and when we do that, life is good. But what if we hadn't set a name yet? By default, name is just null. So would this cause an error because technically we're returning null, not a string? The answer is, yeah, and that's really annoying. That's where nullable types become important.
+## Adding a Return Type
 
+To fix this, add a return type. After the method name, add `: string`. Of course,
+this could be *any* type: a class name, `int`, `bool`, `float`, `array`, `callable`
+or even the new `traversable`. More on that later.
+
+As *soon* as we do this, PhpStorm is furious all over again! And so is PHP: refresh!
+
+> TypeError: Return value of getName() must be of the type string, integer returned
+
+## Return Types & Weak Versus Strict Mode
+
+Yes! There is one *really* important thing happening behind the scenes: this
+throws an error *only* because this class is in *strict* mode.
+
+What I mean is, if we changed `Genus` back to weak mode, then instead of throwing
+an error, PHP would try to turn the integer 5 into a string. The strict or weak mode
+affects argument type-hints *and* return types.
+
+But here's the tricky part: in this case, the `strict_types`, that's important is
+the one in `Genus`. If you remove the `declare(script_types=1)` on `Genus` and then
+refresh the page... it works!
+
+Wait, wait, wait. When we type-hinted the *argument* in `setName()`, that caused
+an error when we put the *controller* in strict mode. But when we added the *return type*,
+suddenly it was important to use strict mode in the `Genus` class.
+
+Here's the real, full explanation. When you add `strict_types=1`, it says:
+
+> I want "strict" type-checking to be applied to all function calls I make *from*
+> this file and all return types *in* this file.
+
+Or, to be even more brief:
+
+> I want "strict" type-checking to be applied to all values I control in this file.
+
+The return value of `getName()` is something that *we* control and calculate in `Genus`.
+Thanks to the `strict_types` in `Genus`, PHP forces us to write good code and return
+the correct type.
+
+But, with `setName()`, the argument value is being created *outside* of this class
+in `GenusController`. For that, the `strict_types` needs to be added there.
+
+Actually, scalar type hinting and return types are *really* easy... except for the
+`strict_types` part. My advice is this: start adding a few `strict_types` to your
+code and see how you like it. It's a great feature, but your code will work fine
+with or without it.
+
+In `Genus`, let's fix our code by returning `$this->name`. Now, life is good.
+
+But what if `Genus` did *not* have a name yet? In that case, `getGenus()` would return
+`null`. Is that allowed? Nope! null is *not* a string... and this can be really annoying.
+Fortunately, PHP 7.1 gives us nullable types.

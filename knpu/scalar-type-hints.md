@@ -1,34 +1,82 @@
 # Scalar Type Hints
 
-Of course the big big feature of php7 is scaler type hinting and return types. And these are actually really cool, but there is a little bit pf complexity to them. Let's try out scaler type hinting.  Inside SFC, Appplebundle, Controller, Genus Controller; I am just going to crate a new page for us to play with.
+Of course the big big features of PHP 7 are scalar type-hinting and return types.
+Let's play with scalar type-hinting first.
 
-Okay, the public function types example action ... And above that I will add an @route ... or /types.
+Open up `src/AppBundle/Controller/GenusController.php`. Let's create a new page to
+play with: `public function typesExampleAction()`. Above that, I'll use
+`@Route("/types")` to map a URL to this.
 
-In one of the classes, normal php7 classes that I have is called in this proxy Genus. And it just holds a bunch of data by genu which is a type of animal classification. It has an ID, it has a name, it has a species count, fun fact, etc.
+I already have a normal PHP class called `Genus`... which is a type of animal classification.
+It has an `id`, `name`, `speciesCount`, `funFact` and a few other things.
 
-So since we are here, let's create a new genus. Genus equals new genus ... and I'll say genus set name, which we know should be a string but instead I am going to pass the number four and down below I am going to [inaudible 00:01:22] genus and say "Die."
+Back in the controller, let's create a new genus: `$genus = new Genus()`. The genus's
+name should obviously be a string. But, let's be difficult and set it to an integer:
+`$genus->setName(4)`. Below, `var_dump($genus);` and then `die;`.
 
-Cool.
+Cool! In the browser, head to `/types` to check it out. It works! Even though *we*
+think `name` should be a string, PHP lets us pass whatever we want. Right now,
+`name` is actually an int.
 
-So in our browser, lets go to to/types and see what happens. Not surprisingly, php allows us to do this. Even though we think a name is a string, we can pass whatever we want. And notice that it does show up as an INT so the name property is in fact an INT.
+In PHP 5, we *could* type-hint arguments... but only with either `array`, `closure`
+or a class name. Well, no more! In PHP 7, we can type-hint with `string`... or `int`,
+`float`, `bool` or `pizza`. Wait, not `pizza`.
 
-In php7, we can now go into any of our methods, like "set name" and we can type hint the argument with a scaler. A scaler. Now notice php [inaudible 00:02:13] are angry about this. So say scaler type hints are only available on php7, if you get this you go into your settings and comma in MAC. I'll search php up here ... Down below in languages and frameworks, we can put this all the way up to 7.1, so we will be using 7.1 features, as well.
+But, woh! PhpStorm is *super* mad about this. That's because my PHPStorm is still
+configured to parse things as PHP 5. Get with it man! Open the PHP Storm settings
+and search for PHP. Under "Languages and Frameworks", set the version to 7.1 We'll
+also be showing off some 7.1 features.
 
-Perfect!
+So much happier! With *just* this one small change, go back, refresh and watch closely.
+Specifically, watch the "name integer 4" part. Woh! Now it's a *string* 4.
 
-Now with just that one change, go back and refresh and watch closely. Watch the name integer four. Now it's a string four.
+## Weak Mode versus Strict Mode
 
-You see, the new type system has two modes. The weak mode and the strict mode and the weak mode is used by default. When you use the weak mode it means that php will try to coerce the value into this type so we pass integer and it tries to cast that to be a string. And we are used to this. This is how php works. We can very easily see what happens when you print and integer, when you are trying print an integer, php changes it to a string and then prints it, so that's what happens.
+You see, PHP 7 types now have two modes: weak mode and strict mode. When you
+use weak mode - which is the default - PHP will try to "coerce" the argument into
+whatever the type-hint is. In this case, it turns the integer 4 into a string 4.
+And we're totally accustomed to this in PHP: if you try to echo an integer or treat
+it like a string in any way, PHP automatically makes it a string.
 
-If you use strict mode, however, then instead of it changing from an integer to a sting, it will throw an error. A type error. How do we activate strict mode? At the top of genus make the very very first thing in the file say "Declare use strict types=1". It looks weird, but that is the key. It has to be the first thing in the file.
+## Strict Mode (strict_types=1)
 
-Now check this out. If we refresh still no error. So, what's the deal? We'll copy that line and go to genus controller and put it at the top of genus controller. Now hit refresh.
+But if you use strict mode, things are much different. Instead of changing the
+value from an integer to a string, it will throw an error: a `TypeError`. How do we
+activate strict mode?
+
+At the top of `Genus`, make the *very* first thing in the file say `declare(strict_types=1);`.
+This *must* be the first line in the file.
+
+But check this out: when we refresh... still no error! What's the deal? Copy
+that line, open `GenusController` and paste it here.
+
+*Now* refresh again.
 
 Boom!
 
-This is the error we expected. Type error. Argument one, "path to set name must be type string integer gamma."
+This is the error we expected:
 
-So the importance here is that the strict type is added to the file where we passed the value not actually the file where do the type hint.  An this is one of the weird things about type hint, you have to opt into in this strange way. It's done that way on purpose. Because imagine if you are using weak type hint in your applications so you don't really care if name is a string or an integer and you want to use some external library and they are using strict type hinting in that library. Well that is going to cause you a lot of problems because you are going to get a lot of errors when you deal with that library. So it gives the developer the ability to opt in to strict mode for whatever code that they are using.  So it is a little strange, but works really well in practice.
+> `TypeError` Argument 1 passed to `setName()` must be type string, integer given.
 
-Now the on thing you can remember about strict mode versus weak mode is that is whether or not you have a problem with weak mode. If you have been using php for years and you have not had problems with php automatically changing your integers to strings, then you might not need strict mode. When you enable strict mode, it is going to make your code more predictable. Its not going to carry your code tighter but you are going to see a lot more errors that you're going to need to correct yourself so use strict mode wisely.
+This... is a bit confusing. The important thing is that `strict_types` is added to
+the file where we *pass* the value... not actually the file where we add the type-hint.
+When you add `strict_types=1`, you're saying:
 
+> I want "strict" type-checking to be applied to all function calls I *make* from
+> this file.
+
+It's done this way on purpose: if you download an external library that uses scalar
+type-hints, *you* get to decide whether or not you want arguments you pass to its
+functions to be strictly type-checked. *You*, the developer, get to opt into strict
+mode.
+
+## Strict Mode or Weak Mode?
+
+So... which should you use? It's up to you... just remember that you've been using
+PHP for *years* in "weak mode". If it's never bothered you that PHP automatically
+changes integers to strings instead of throwing an error, you might choose to keep
+using weak mode. When you enable strict mode, your code *will* be more predictable...
+but you'll also see - and need to correct - a lot more errors.
+
+And remember! You can use scalar type-hints in either mode. There's also one more
+thing to consider when choosing between weak or strict mode: return types.

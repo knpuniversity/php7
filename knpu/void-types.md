@@ -1,22 +1,82 @@
-# Void Types
+# Void Types & Refactoring an Entire Class
 
-There's one last feature with return types, and that is void return types. So setFunFact, it's a function. It just doesn't return anything. If we want we can advertise that with :void. That is pretty straight froward. It just literally means this doesn't return anything. And not surprisingly, when we refresh we don't get an error because we are not returning anything. Now, if for example we're trying to return null, that actually will not work because we're in strict type.
+There's *one* last feature with return types: void return types. `setFunFact()` is
+a function... but it doesn't return anything. You can advertise that with `: void`.
+This literally means that the method returns... nothing. And not surprisingly, when
+we refresh, it works great... because we are in fact *not* returning anything.
 
-Actually strict type doesn't matter. When your return type is void, it literally means you do not return anything, returning any value. Even null is not allowed. So void is not that important. It's useful because A, it advertises to your users not to expect any return value, and it also just makes sure that you don't do something silly and accidentally add a return value. You are allowed to use the return statement, however. That is totally allowed.
+But now, try to return `null`. This will *not* work! When your return type is
+`void`, it literally means you do not return *anything*. Even null is not allowed.
 
-All right. So we know everything about scalar type hints and return types. So let's update everything inside of Genus to use that. So starting with getId, this is going to return an int but it is null, well, because it will be null first. getName, same thing, actually should be null. setName, it's up to you but I'm going to allow null to be parsed to setName. But in your application, this is actually a good opportunity to throw an error perhaps if you want to make sure that null is never set to null.
+The void return type isn't that important, but it's useful because (A), it documents
+that this method does not return anything and (B) it guarantees that we don't get
+crazy and accidentally return something.
 
-If name is never set to null. And of course, this is going to return void. If we get SubFamily, that was easy. It's going to return SubFamily but it is null. Now, the cool part about this is we don't need the PHP doc anymore. We have a return type. It's better than the PHP doc. It will definitely return a SubFamily not just probably. Now, in setSubFamily, let's make that return type of void. Notice here we have SubFamily = null. If we wanted to we could make that a nullable type by saying ?SubFamily and then removing the = null.
+Oh, but you *can* use the `return` statement - as long as it it's just `return` with
+nothing after.
 
-Then it would be a required argument but null would be valid. That's really cool. All right. Let's keep going. getSpeciesCount, that's a nullable int. setSpeciesCount, make that argument a nullable int and it returns void. getFunFact and setFunFact to find. getUpdatedAt, we're going to have this return a nullable DateTimeInterface. That's null at first. Now, notice I'm returning a DateTime, so why DateTimeInterface? Well, it's up to you. If I set the return type to DateTime, then I'm going to need to write my code internally to always returning DateTime.
+## Updating all of Genus
 
-If later I want to return a DateTimeImmutable, then that would violate my type int, my return type. So in reality, we just want this method to return DateTimeInterface, and that's going to allow us internally to update DateTime or DateTimeImmutable. It's whatever you need to advertise. All right, for setIsPublished, let's make that a bool not nullable, have it return void. getIsPublished will definitely then return a bool. This is important because up in the property we actually gave it a default value so it will never be null. And you get GenusNote another return type, a Collection from Doctrine and Common.
+Great news! We now know *everything* about scalar type hints and return types. And
+we can use our new super powers to update *everything* in `Genus`.
 
-And then update the PHP doc to match that. Return type of Collection. Now there's two interesting things. First of all, Array Collection implements Collection. So again, I'm just choosing whether or not I want to set our return type to be more specific Array Collection or just be Interface Collection. I'll choose Collection. Second thing is, it will actually be a collection of GenusNote objects. There's no way to denote that with the return type. So I'm still keeping the pipe GenusNote[]. So then when I call getNotes, if I iterate over it, my editor will know that each item in the collection is a GenusNote object and that will give me auto completion.
+Let's do it! Start with `getId()`, this will return an `int`, but it should be nullable:
+there is no `id` at first. For `getName()`, the same thing, `?string`. For `setName()`,
+it's up to you: this accepts a string, but I *am* going to allow it to be null. But
+if you never want that to happen, don't allow it! And of course, the method should
+return `void`.
 
-So you're not going to entirely remove your At returns. All right, getFirstDiscoveredAt, that's going to be a nullable DateTimeInterface. setFirstDiscoveredAt will be a void return type. getSlug will be a nullable string, setSlug will be a nullable string type, have it return void. addGenusScientists will return void, removeGenusScientist, the same. And then, getGenusScientists, like before, I'm going to make this return a Collection and then update to PHP doc. And then, same down here, getExpertScientists Collection. Then this actually already advertises correctly. I'll just shorten that type int.
+For `getSubFamily()`, this is easy: it will return a `SubFamily` object or null.
+The *cool* part is that we don't need the PHP doc anymore! We have a return type!
+Amazing!
 
-So you can see that it makes our class a lot tighter. It's a lot more readable but also is extra work. The cool thing is you have the power to add return types or target your argument where it makes sense, but you don't necessarily need to do it everywhere. It was a lot of changes so let's actually make sure that this works. I'm going to go to my browser and I'm going to go to /admin/genus. So I'm actually doing /genus/new which is a little endpoint that actually just creates a Genus behind the scene.
+For `setSubFamily()`, mark this to return `void`. Notice that the argument is
+`SubFamily $subFamily = null`. If we want that argument to be required, we could
+change that to `?SubFamily`. Your call!
 
-So apparently, we can still create Genuses. You can click that. It will take me to the Genus show page. And then, we can actually log in with weaverryan+1@gmail.com. Password, iliketurtles. And when we do that, we can edit our Genus. And let's change the number of species to 5,000, keep the fun fact empty, and change the name, hit enter, and everything still works.
+Let's keep going! `getSpeciesCount()` returns a nullable `int`, though we could give
+that a default value of 0 if we want, and remove the question mark. `setSpeciesCount()`
+accepts a nullable `int` and returns `void`. Again, the nullable part is up to you.
 
+For `getUpdatedAt()`, set its return type to a nullable `DateTimeInterface`, because
+this starts as `null`. But notice... I'm returning a `DateTime` object... so why make
+the return-type `DateTimeInterface`? Well, it's up to you. With this type-hint, I could
+update my code later to return a `DateTimeImmutable` object. But more importantly,
+the return type is what you're "advertising" to outsiders. Choose whatever makes
+the most sense.
+
+Ok, let's get this done! `setIsPublished` takes a `bool` that is *not* nullable,
+and it returns `void`. `getIsPublished` will definitely return a `bool` - we initialized
+it to a `bool` when we defined the property. 
+
+For `getNotes()`, return a `Collection` and then update the PHPDoc to match. There
+are two interesting things happening. First, `ArrayCollection` implements this
+`Collection` interface. So just like with `getUpdatedAt()`, your return type can
+be a concrete class or some interface. Using the interface is more hipster. Second,
+this returns a collection of `GenusNote` objects. In other words, if you call `getNotes()`
+and then loop over the results, each item will be a `GenusNote`. But there's no way
+to denote that with return types. That's why we're keeping the `|GenusNote[]`. That
+helps my editor when looping.
+
+`getFirstDiscoveredAt()` returns a nullable `DateTimeInterface` and `setFirstDiscoveredAt()`
+returns `void`. `getSlug()` will be a nullable string, `setSlug()` will accept nullable
+string argument and return `void`. `addGenusScientists()` will return void and `removeGenusScientist()`
+the same. For `getGenusScientists()`, like before, I'll set the return type to `Collection`
+and update the PHP doc. Do the same for `getExpertScientists()`: return `Collection`.
+This PHPDoc is already correct... but I'll shorten it.
+
+Phew! That makes our class a lot *tighter*: it's now more readable and more difficult
+to make mistakes. But it also took some work! The cool thing is that you have the
+power to add return types and type-hint arguments wherever you want. But you
+don't need to do it *everywhere*.
+
+After *all* those changes... did we break anything? Find your browser and go to
+`/genus/new`. This is a "dummy" URL that creates and saves a `Genus` behind the
+scenes. So apparently, that still works! Click the Genus to go to its show page.
+Then, login using `weaverryan+1@gmail.com` and password `iliketurtles`. Once you
+do that, click to edit the genus.
+
+Let's see... change the species to 5000, keep the fun fact empty and change the
+name. Hit enter!
+
+Yay! Everything still works! And our `Genus` class is awesome!

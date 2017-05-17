@@ -1,8 +1,51 @@
 # Nullable Types
 
-All right. Let's try an experiment. In Genus Controller, let's changed our var dump to get fun fact. Another property on Genus that should be a string. Now If you refresh ... of course we haven't actually set that yet so it is actually null. No surprises. Okay, but what happens if we add a return type to this of string? Now when we refresh it explodes, it's not string, it's null. This actually made [scalier 00:00:45] typing. Scalier return types, this actually made it return types very unusable in PHP 7, so in PHP 7.1 they introduce nullable types, which makes life way better. It works like this, in front of string just add a question mark. It can now return a string or it can return null, life is good.
+Let's try an experiment: In `GenusController`, change our `var_dump()` to `$genus->getFunFact()`:
+another property on `Genus` that *should* be a string. If you refresh now... it's
+null! No surprise: we haven't set this yet and that method doesn't have a return type.
 
-All right, so let's try it out a little bit more. Now I'm going to say how about, Genus arrow set fun fact this is fun, little far down, Genus arrow get fun fact. Then down here we'll say "Genus arrow set fun fact null" because it is allowed to be null, and then we'll print it again. Will this work? Totally. It prints the string, then it prints null. Unless you [typant 00:01:49] the argument. So set fun fact right now, this argument can be anything, we have not typed it. So, okay that should be a string, great let's add string, no problem right? Except when we refresh we get an error. The first one works, but when we try to pass null, it fails because null is not a string, of course. These things that we didn't use to think about in PHP we suddenly do need to think about. Not surprisingly, we can fix that the same way, question mark in front. Now it will accept string or null and when I refresh, it works.
+Now, add one: `: string`. Refresh again.
 
-Now just a note, you might be thinking "Wait, wait wait. How is question mark string, different than string fun fact equals null?" Right, because if I say string fun fact equals null, that should allow a null value to be passed in, and you are right. The difference is when you default the argument to null, it means that I'm allowed to call set fun fact without any arguments because the argument is optional. With this set fun fact the argument is required when you call set fun fact but you are allowed to pass null. So they are slightly different in which one you need to use just depends on whether or not you want to make the argument truly optional or just allow it to accept null.
+Explosion! This method returns *null*... which apparently is *not* a string. This
+actually made return types a pain in PHP 7... so in PHP 7.1, they fixed it! With
+"nullable" types. It works like this: if a return type can be null, add a `?` in
+front of the type.
 
+Yep, this method can return a string *or* null. And once again, life is good!
+
+## Nullable Type Arguments
+
+Let's go further! In the controller, add `$genus->setFunFact('This is fun')` then
+`var_dump($genus->getFunFact())`. After, do `$genus->setFunFact(null)`... because
+null *should* be allowed.
+
+Will this work? Totally! It prints the string, then it prints `null`. Unless... you
+type-hint the argument. Right now the argument to `setFunFact()` can be anything.
+Add the `string` type-hint.
+
+No problem, right? Refresh! Ah! The first dump works. but `setFunFact(null)` *fails*.
+Duh, null is *not* a string.
+
+In "strict mode", we suddenly need to think about things that were never a problem
+before. That's mostly good, but strict mode is a bit more work. To make this argument
+nullable, add that same `?` before the type.
+
+Refresh again. Beautiful!
+
+## ?string versus string = null
+
+Now, you might be thinking:
+
+> Wait, wait wait. How is `?string` different than `string $funFact = null`?
+
+Hmm, good question! Because if I say `string $funFact = null`, that *does* allow
+a null value to be passed. In reality, these two syntaxes are *almost* the same.
+The difference is that when you default the argument to null, I'm allowed to
+call `setFunFact()` without *any* arguments: the argument is optional.
+
+But with the nullable, `?string` syntax, the argument *is* still required... it's simply
+that `null` is a valid value. That makes `?string` better... unless you *actually*
+want the argument to be optional.
+
+And by the way, the nullable `?` works for *any* type, like classes. We'll see that
+in action next!

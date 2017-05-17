@@ -1,2 +1,9 @@
 chapters: 
-
+    - speed-throwable
+    - scalar-type-hints
+    - return-types
+    - nullable-types
+    - void-types
+    - private-constants
+    - iterable-type
+    - multi-exception-catch

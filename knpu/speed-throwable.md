@@ -1,20 +1,101 @@
-# Speed Throwable
+# 1 <3 Speed & Throwable
 
-Hey, guys. Not to start things off on a bad note, but look, PHP 5 is dead. It's not even supported anymore. If you're still using PHP 5, you need to move on. This tutorial is all about why, cool reasons for you, and also, reasons that you could take up to your manager so you can convince them that it's a big cost savings awesome thing. PHP 7 is great. It's a higher number than PHP 5 so it must be great. It's even two numbers higher. They skipped 6 because PHP 7 is so great, or maybe it's because they messed up PHP 6. Let's say that they skipped PHP 6 because 7 is so amazing.
+Hey guys! I hate to start a tutorial off on a depressing note but... look... PHP
+5 is *dead*. WAY dead. Like, it's not even supported anymore. PHP 5 is like that
+old, bad relationship that you just can't get out of. Hey, it's time to move on.
+You're better than PHP 5.
 
-This tutorial's about covering the important stuff, not the crap and garbage. You can spend hours reading the change log about PHP 7. That means that we will not be talking about the spaceship operator because even to this day, I have never used it. Yes, I know, it has a cool name, spaceship operator, but unless it's going to actually come to my house, beam me up, and take me to the grocery store, I'm not interested.
+Also... did you know that PHP 7 is a full *2* numbers higher than PHP 5? I heard
+they skipped PHP 6 because 7 was just *too* awesome to fit into such a low number.
+Or... maybe because they messed up PHP 6. Anyways, let's pretend that it's because
+PHP 7 is so great... because it is.
 
-What is important with PHP 7? Honestly, the biggest point is performance. PHP 7 gives you a huge performance boost. Zend, to advertise things, made a cool looking infographic with a bunch of different graphs, and basically, if you look at the graphs, you're going to see that PHP 7 is super, super fast. That's what you take to your manager. You can say, "Hey, when we go to production, our memory, our CPU, it's going to go way down. Our pages are going to be faster and we can turn off 10 of our servers."
+This tutorial is about learning the *important* stuff... only. Look, you can spend
+*hours* reading the PHP 7 CHANGELOG. Believe us... we did it. I get it, they made
+*a lot* of stuff better... cool... but most of it isn't that critical. This means
+that we will *not* be talking about the spaceship operator... because it is apparently
+*not* a person who drives a flying saucer. Nope, it's an edge-case way to compare
+numbers and strings. So disappointing.
 
-Obviously, there's a lot in the code that changed, too. We are going to try those things hands-on. As always, definitely code along with me and try this stuff out. Download the course code from this page, unzip it, and you'll find a start directory with the same code that you see here. You can follow along the readme.md file to get things set up. The last step will be to find your favorite terminal, go to the directory, and run php bin/console server:run to start the built-in web server. You can load that up on localhost:8000.
+## Speed Sells
 
-This is AquaNote, a project that we've been working on in our Symphony series. It's not important. It's just a nice skeleton to start with. The first thing I'm going to talk about in PHP 7 is real, proper, error handling. In the readme project, I'm going to create a new file called play-exceptions.php. Here, we're just going to write some really bad code. We're going to call some undefined function, and below I'll write continue processing file, even though we know that that will not continue processing the file. We know that this is going to die.
+So what *is* important in PHP 7? Honestly... the *biggest* selling point for upgrading
+is speed. PHP 7 performance is on point. To show it off, Zend made a cute infographic.
+Summary: PHP 7 equals zoooooom!
 
-Flip over to your terminal, open a new tab, and run PHP play-exceptions. PHP fatal error. In PHP 5, if you wanted to handle an actual, in PHP we have exceptions which are nice. You can throw exceptions. You can catch exceptions. Then, there are errors which are weird and they're hard to deal with. If you want to catch them, you need to work with the error handler. In PHP 7, that's not the case anymore. You can now catch errors.
+And that means you can take this to your manager and say:
 
-It looks like this. Looks like a normal try catch block. We say try, then we're going to catch\throwable. We're going to talk more about that in a second. Down here, and prove it's working. Now it means if you write bad code, you can catch it, and even print out the error message.
+> Hey buddy! When we upgrade to PHP 7, our pages will be faster and we can turn
+> off like 10 servers.
 
-This time, when we flip back, try it again, it actually runs. Errors were made to work correctly in PHP 7. Now, this throwable thing, filed command, you can see it's actually an interface. The deal is, we still have the exception class. There's also an error class. Both exception and error implement throwable. If you want to catch both exceptions or errors, then you want to catch throwable. If you only want to catch exceptions, you should catch the exception class. If you only want to catch errors, you can catch the error class.
+And then they'll throw you a parade and promote you to CEO. Enjoy.
 
-Like with exceptions, there are also different types of errors. For example, there is the type error, which is thrown when you're passing an argument of a wrong type to a function. We're going to talk about typing next.
+## Setting up the Project
 
+And now that we know how to *sell* the upgrade to management, let's get into the
+cool technical stuff.
+
+As always, you should definitely enjoy a snack during the tutorial... and code along
+with me! Download the course code from this page and unzip it. Inside, you'll find
+a fancy `start/` directory with the same code you see here. Follow the `README.md`
+file to get things set up. The last step will be to find your favorite terminal,
+go to the project directory, and run:
+
+```terminal
+php bin/console server:run
+```
+
+to start the built-in web server. Open up the project in your browser: http://localhost:8000.
+
+Welcome to AquaNote! A project we've been building in our Symfony series. For this
+tutorial, it'll be a nice skeleton to start with.
+
+## Proper Error Handling
+
+Ok, the *first* feature of PHP 7 that gets me excited is... proper error handling.
+Stay with me: I promise this *is* exciting!
+
+At the root of the project, create a new file called `play-exceptions.php`. Inside,
+let's do something fun: like, write some really bad code! We'll call an `undefinedFunction()`.
+And below, I'll write "continue processing file", even though we know that's crazy!
+This script will blow up *way* before that line.
+
+Find your terminal, open up a new tab, and run:
+
+```terminal
+php play-exceptions.php
+```
+
+Fatal error! Woohoo! 
+
+## Catching Errors
+
+In PHP 5, we could catch *exceptions*... but not errors. Sure, you could try to work
+with the error handler... but that's confusing stuff! In PHP 7... they fixed things!
+We can finally catch *errors*.
+
+Start with a normal try-catch block. But instead of catching `Exception`, catch
+`\Throwable`. Yes! In PHP 7, you can write bad code, catch it, and even print out
+the error message!
+
+Try the file again:
+
+```terminal
+php play-exceptions.php
+```
+
+Haha! It *actually* runs. 
+
+## About Throwable
+
+About this `Throwable` thingy: it's actually a core *interface*. Here's the deal:
+we still have the core `Exception` class. And now, there is also an `Error` class.
+And both `Exception` and `Error` implement the `Throwable` interface. So if you want
+to catch both exceptions *and* errors, `catch \Throwable`. If you want to only catch
+exceptions, then `catch \Exception`. And if you want to only catch errors, use
+`catch \Error`. It's quite elegant.
+
+*And*, just like with exceptions, there are different *types* of errors, each with
+its own class. For example, `TypeError` is thrown when you're passing an argument
+of a wrong *type* to a function. And actually, that's our next topic: the new scalar
+type system and strict mode!
