@@ -23,7 +23,7 @@ Will this work? Totally! It prints the string, then it prints `null`. Unless... 
 type-hint the argument. Right now the argument to `setFunFact()` can be anything.
 Add the `string` type-hint.
 
-No problem, right? Refresh! Ah! The first dump works. but `setFunFact(null)` *fails*.
+No problem, right? Refresh! Ah! The first dump works, but `setFunFact(null)` *fails*.
 Duh, null is *not* a string.
 
 In "strict mode", we suddenly need to think about things that were never a problem

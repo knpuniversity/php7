@@ -19,7 +19,7 @@ for *not* sharing his cookies: the `NoCookiesLeft` exception and the `NoCookieFo
 exception. That last one is particularly rude.
 
 See, Crazy Dave is such a jerk that he denies me reasonable cookie requests with
-random reasons. So, if `random_int(0, 1)`, then he says `throw new NoCookiesForYou`.
+random reasons. So, if `random_int(0, 1)`, then he says `throw new NoCookieForYou`.
 Otherwise, he throws a `new NoCookiesLeft` exception. So disappointing.
 
 Find your browser and change the URL to `/crazy-dave`. Yep, random awful errors.
@@ -27,9 +27,9 @@ And *no* cookies.
 
 ## Catching Exceptions the Old Way
 
-We don't appreciate Dave shouting or throwing random things at us. So, let's at least
+Ya know, we don't appreciate Dave shouting or throwing random things at us. So, let's at least
 ask Dave to whisper his denials. To do that, wrap all of the logic in a try-catch
-block. We need to catch *both* errors. No problem! First, catch `NoCookiesForYou`.
+block. We need to catch *both* errors. No problem! First, catch `NoCookieForYou`.
 If that happens, set a new `$whisper` variable to `Crazy Dave whispered` and then
 `$e->getMessage()`.
 
@@ -46,10 +46,11 @@ though... because Dave is still a jerk.
 
 ## Catching Multiple Exceptions
 
-If you find yourself in this situation, there are two solutions. First, if you are
-able to modify these exceptions, you should make them extend a common base class
-or implement a common interface. Then, you can catch *that* exception instance.
-That's the proper solution.
+If you find yourself in this situation, you should just go buy your own cookies.
+And if you find yourself catching multiple exceptions, there are two solutions.
+First, if you are able to modify these exceptions, you should make them extend a
+common base class or implement a common interface. Then, you can catch *that* exception
+instance. That's the proper solution.
 
 But if you can't update the classes, in PHP 7, you can catch them both at once. Delete
 the second catch and instead, say `NoCookieForYou | NoCookiesLeft $e`. Say hello

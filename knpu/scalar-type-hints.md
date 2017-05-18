@@ -22,8 +22,8 @@ In PHP 5, we *could* type-hint arguments... but only with either `array`, `closu
 or a class name. Well, no more! In PHP 7, we can type-hint with `string`... or `int`,
 `float`, `bool` or `pizza`. Wait, not `pizza`.
 
-But, woh! PhpStorm is *super* mad about this. That's because my PHPStorm is still
-configured to parse things as PHP 5. Get with it man! Open the PHP Storm settings
+But, woh! PhpStorm is *super* mad about this. That's because my PHPStorm is living
+in the past! It's still configured to parse things as PHP 5. Open the PHP Storm settings
 and search for PHP. Under "Languages and Frameworks", set the version to 7.1 We'll
 also be showing off some 7.1 features.
 

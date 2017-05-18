@@ -34,7 +34,7 @@ an error, PHP would try to turn the integer 5 into a string. The strict or weak 
 affects argument type-hints *and* return types.
 
 But here's the tricky part: in this case, the `strict_types`, that's important is
-the one in `Genus`. If you remove the `declare(script_types=1)` on `Genus` and then
+the one in `Genus`. If you remove the `declare(strict_types=1)` on `Genus` and then
 refresh the page... it works!
 
 Wait, wait, wait. When we type-hinted the *argument* in `setName()`, that caused

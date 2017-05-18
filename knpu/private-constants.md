@@ -6,7 +6,7 @@ for class constants: we can finally make them private!
 In `GenusController` find, `getNotesAction()`. This is used by an AJAX call to load
 notes that appear at the bottom of the genus show page. For example, go to `/genus`
 and click on one of them. Bam! At the bottom, an AJAX call loads a list of
-notes, complete with an avatar. The comes from the `avatarUri` field that's returned.
+notes, complete with an avatar. That comes from the `avatarUri` field that's returned.
 
 Look at the `/images/` part: that looks funny to me. All of our images are stored
 in that directory, and that's fine. But I hate having random strings like this in
@@ -22,7 +22,7 @@ still loads.
 ## Private Constants
 
 This is an improvement... but it would be even *better* if I could call a method
-on `GenusNote()` to get the complete `avatarUri` string, instead of calculating it
+on `GenusNote` to get the complete `avatarUri` string, instead of calculating it
 here in my controller. In other words, I *don't* want anyone to use our constant
 anymore: we're going to add a public *method* instead.
 

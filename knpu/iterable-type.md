@@ -16,7 +16,7 @@ shrimp, clams, lobsters, and a shark! Pass a new `recentlyAte` variable into the
 template set to `$genus->feed($food)`. Then, open the `genus/show.html.twig` template,
 add a new "Diet" key, and print `recentlyAte`.
 
-Nice! Go back and refresh the show page. There is is! Aurelia recently ate shrimp,
+Nice! Go back and refresh the show page. There it is! Aurelia recently ate shrimp,
 clams, lobsters, shark.
 
 ## Creating an Iterable Object

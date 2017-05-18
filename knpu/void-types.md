@@ -59,7 +59,7 @@ to denote that with return types. That's why we're keeping the `|GenusNote[]`. T
 helps my editor when looping.
 
 `getFirstDiscoveredAt()` returns a nullable `DateTimeInterface` and `setFirstDiscoveredAt()`
-returns `void`. `getSlug()` will be a nullable string, `setSlug()` will accept nullable
+returns `void`. `getSlug()` will be a nullable string, `setSlug()` will accept a nullable
 string argument and return `void`. `addGenusScientists()` will return void and `removeGenusScientist()`
 the same. For `getGenusScientists()`, like before, I'll set the return type to `Collection`
 and update the PHP doc. Do the same for `getExpertScientists()`: return `Collection`.
