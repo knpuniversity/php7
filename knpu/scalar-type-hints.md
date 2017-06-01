@@ -18,7 +18,7 @@ Cool! In the browser, head to `/types` to check it out. It works! Even though *w
 think `name` should be a string, PHP lets us pass whatever we want. Right now,
 `name` is actually an int.
 
-In PHP 5, we *could* type-hint arguments... but only with either `array`, `closure`
+In PHP 5, we *could* type-hint arguments... but only with either `array`, `callable`
 or a class name. Well, no more! In PHP 7, we can type-hint with `string`... or `int`,
 `float`, `bool` or `pizza`. Wait, not `pizza`.
 
