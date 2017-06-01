@@ -18,7 +18,7 @@ that should return a string, but is instead returning an integer. Lame!
 
 To fix this, add a return type. After the method name, add `: string`. Of course,
 this could be *any* type: a class name, `int`, `bool`, `float`, `array`, `callable`
-or even the new `traversable`. More on that later.
+or even the new `iterable`. More on that later.
 
 As *soon* as we do this, PhpStorm is furious all over again! And so is PHP: refresh!
 
