@@ -26,9 +26,10 @@ Add the `string` type-hint.
 No problem, right? Refresh! Ah! The first dump works, but `setFunFact(null)` *fails*.
 Duh, null is *not* a string.
 
-In "strict mode", we suddenly need to think about things that were never a problem
-before. That's mostly good, but strict mode is a bit more work. To make this argument
-nullable, add that same `?` before the type.
+With scalar type-hints, we suddenly need to think about things that were never a
+problem before. That's mostly good, but it's a bit more work. To make this argument
+nullable, add that same `?` before the type. Without this, passing ``null`` as an
+argument is illegal... in both strict *and* weak modes.
 
 Refresh again. Beautiful!
 
