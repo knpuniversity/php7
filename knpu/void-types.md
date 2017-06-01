@@ -51,12 +51,18 @@ it to a `bool` when we defined the property.
 
 For `getNotes()`, return a `Collection` and then update the PHPDoc to match. There
 are two interesting things happening. First, `ArrayCollection` implements this
-`Collection` interface. So just like with `getUpdatedAt()`, your return type can
-be a concrete class or some interface. Using the interface is more hipster. Second,
-this returns a collection of `GenusNote` objects. In other words, if you call `getNotes()`
-and then loop over the results, each item will be a `GenusNote`. But there's no way
-to denote that with return types. That's why we're keeping the `|GenusNote[]`. That
-helps my editor when looping.
+`Collection` interface, so using the interface is a bit more flexible. Normally,
+that's just a choice you can make: set your return type to the class you *know* you're
+returning... or use the more flexible interface. But actually, for Doctrine collections,
+you *must* use `Collection`. Depending on the situation, this property might be an
+`ArrayCollection` *or* a `PersistentCollection`... both of which implement the
+`Collection` interface. In other words, the *only* guarantee we can make is that
+this returns the `Collection` interface.
+
+Second, this returns a collection of `GenusNote` objects. In other words, if you
+call `getNotes()` and then loop over the results, each item will be a `GenusNote`.
+But there's no way to denote that with return types. That's why we're keeping the
+`|GenusNote[]`. That helps my editor when looping.
 
 `getFirstDiscoveredAt()` returns a nullable `DateTimeInterface` and `setFirstDiscoveredAt()`
 returns `void`. `getSlug()` will be a nullable string, `setSlug()` will accept a nullable
