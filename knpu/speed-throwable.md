@@ -60,6 +60,8 @@ let's do something fun: like, write some really bad code! We'll call an `undefin
 And below, I'll write "continue processing file", even though we know that's crazy!
 This script will blow up *way* before that line.
 
+[[[ code('cc31dcde03') ]]]
+
 Find your terminal, open up a new tab, and run:
 
 ```terminal
@@ -77,6 +79,8 @@ We can finally catch *errors*.
 Start with a normal try-catch block. But instead of catching `Exception`, catch
 `\Throwable`. Yes! In PHP 7, you can write bad code, catch it, and even print out
 the error message!
+
+[[[ code('bd5b34b21a') ]]]
 
 Try the file again:
 
