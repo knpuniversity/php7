@@ -8,8 +8,12 @@ love return types.
 Start in `GenusController`: let's fix our code first. Say `$genus->setName('Octopus')`.
 Now, dump `$genus->getName()`.
 
+[[[ code('150d4b20e1') ]]]
+
 *We* know that this should return a string... but technically... it could return
 anything. Like, what if we get crazy and just `return 5`.
+
+[[[ code('397b575d3e') ]]]
 
 What happens? Well, no surprise... it returns 5, an *integer*. Yep, we have a method
 that should return a string, but is instead returning an integer. Lame!
@@ -19,6 +23,8 @@ that should return a string, but is instead returning an integer. Lame!
 To fix this, add a return type. After the method name, add `: string`. Of course,
 this could be *any* type: a class name, `int`, `bool`, `float`, `array`, `callable`
 or even the new `iterable`. More on that later.
+
+[[[ code('74135154c2') ]]]
 
 As *soon* as we do this, PhpStorm is furious all over again! And so is PHP: refresh!
 
@@ -63,6 +69,8 @@ code and see how you like it. It's a great feature, but your code will work fine
 with or without it.
 
 In `Genus`, let's fix our code by returning `$this->name`. Now, life is good.
+
+[[[ code('74135154c2') ]]]
 
 But what if `Genus` did *not* have a name yet? In that case, `getGenus()` would return
 `null`. Is that allowed? Nope! null is *not* a string... and this can be really annoying.
