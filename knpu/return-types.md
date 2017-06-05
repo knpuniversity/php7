@@ -70,7 +70,7 @@ with or without it.
 
 In `Genus`, let's fix our code by returning `$this->name`. Now, life is good.
 
-[[[ code('74135154c2') ]]]
+[[[ code('1f34c35ea8') ]]]
 
 But what if `Genus` did *not* have a name yet? In that case, `getGenus()` would return
 `null`. Is that allowed? Nope! null is *not* a string... and this can be really annoying.
