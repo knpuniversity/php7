@@ -14,6 +14,8 @@ Back in the controller, let's create a new genus: `$genus = new Genus()`. The ge
 name should obviously be a string. But, let's be difficult and set it to an integer:
 `$genus->setName(4)`. Below, `var_dump($genus);` and then `die;`.
 
+[[[ code('bdffdaeea6') ]]]
+
 Cool! In the browser, head to `/types` to check it out. It works! Even though *we*
 think `name` should be a string, PHP lets us pass whatever we want. Right now,
 `name` is actually an int.
@@ -21,6 +23,8 @@ think `name` should be a string, PHP lets us pass whatever we want. Right now,
 In PHP 5, we *could* type-hint arguments... but only with either `array`, `callable`
 or a class name. Well, no more! In PHP 7, we can type-hint with `string`... or `int`,
 `float`, `bool` or `pizza`. Wait, not `pizza`.
+
+[[[ code('ff34af0af4') ]]]
 
 But, woh! PhpStorm is *super* mad about this. That's because my PHPStorm is living
 in the past! It's still configured to parse things as PHP 5. Open the PHP Storm settings
@@ -47,8 +51,12 @@ activate strict mode?
 At the top of `Genus`, make the *very* first thing in the file say `declare(strict_types=1);`.
 This *must* be the first line in the file.
 
+[[[ code('87cae68fab') ]]]
+
 But check this out: when we refresh... still no error! What's the deal? Copy
 that line, open `GenusController` and paste it here.
+
+[[[ code('32efe444db') ]]]
 
 *Now* refresh again.
 
