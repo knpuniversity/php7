@@ -11,10 +11,16 @@ to a string.
 I'm going to paste in some code. Basically, we pass an array with some food, and
 this returns a message. And if we pass *no* food, our genus looks at us funny...
 
+[[[ code('af4b83b162') ]]]
+
 Let's go use this! In `showAction()`, create a `$food` array set to, how about,
 shrimp, clams, lobsters, and a shark! Pass a new `recentlyAte` variable into the
 template set to `$genus->feed($food)`. Then, open the `genus/show.html.twig` template,
 add a new "Diet" key, and print `recentlyAte`.
+
+[[[ code('21a74db249') ]]]
+
+[[[ code('c068cdee86') ]]]
 
 Nice! Go back and refresh the show page. There it is! Aurelia recently ate shrimp,
 clams, lobsters, shark.
@@ -30,6 +36,8 @@ work.
 Let's try it! In `GenusController`, rename the `$food` variable to `$foodArray`.
 Then, add `$food = new \ArrayObject()` and pass it `$foodArray`. 
 
+[[[ code('e37fbbd330') ]]]
+
 If you're not familiar with `ArrayObject`, it's a PHP core object, but it looks
 and acts like an array. Most importantly, you can foreach over it. So in theory,
 our `feed()` function should be able to use this, right?
@@ -43,6 +51,8 @@ If you refresh... huge error!
 Of course: we're requiring an array with the type-hint. Well... that's kind of lame.
 Change this to `iterable`: a new pseudo-type - like `array` - from PHP 7.1. This
 is *perfect* when *all* you care about is that an argument can be used in `foreach`.
+
+[[[ code('0085211510') ]]]
 
 Notice, PHPStorm doesn't like this at all. My version of PHPStorm still doesn't think
 that `iterable` exists. But, it *is* valid, and this will probably, hopefully be
@@ -61,7 +71,11 @@ If I want this to be more flexible, we need to do some refactoring. Create a new
 variable called `$foodItems` set to an empty array. Then, foreach over `$food as $foodItem`.
 This is legal! Inside, put each item into the `$foodItems` array.
 
+[[[ code('53e979dbf5') ]]]
+
 Finally, update the count to use `$foodItems` and the same for `implode()`.
+
+[[[ code('31ca3f2c1a') ]]]
 
 And just like that, this function can accept *any* value that we can loop over.
 
