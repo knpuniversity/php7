@@ -16,6 +16,10 @@ Open `GenusNote`, which is the object we're rendering on this page. Add a new co
 `const AVATAR_FILE_PREFIX = '/images';`. Then, in the controller, use this:
 `GenusNote::AVATAR_FILE_PREFIX`.
 
+[[[ code('5cc7153a29') ]]]
+
+[[[ code('784924529c') ]]]
+
 So far, this is *all* stuff we've seen before. And when we refresh... yep! Everything
 still loads.
 
@@ -26,7 +30,11 @@ on `GenusNote` to get the complete `avatarUri` string, instead of calculating it
 here in my controller. In other words, I *don't* want anyone to use our constant
 anymore: we're going to add a public *method* instead.
 
-In PHP 7.1, we can say `private const`. Now, accessing that constant from outside
+In PHP 7.1, we can say `private const`. 
+
+[[[ code('70faa09347') ]]]
+
+Now, accessing that constant from outside
 this class is illegal! That means, if we refresh, our AJAX calls are failing! On
 the web debug toolbar, yep! You can see the 500 errors! If I open the profiler and
 click "Exception", we see
@@ -37,6 +45,8 @@ Awesome! So now that I can't use the constant anymore, I'll be looking for a pub
 function to use instead. In `GenusNote`, add a `public function getUserAvatarUri()`.
 Hey! We're PHP 7 pros now, so add a `string` return type.
 
+[[[ code('62b14c544e') ]]]
+
 Before we add the logic, let's make things fancier. Suppose that *sometimes* there
 is *not* a `userAvatarFilename` value for a note. If that's true, let's show a default
 avatar image.
@@ -45,12 +55,18 @@ Back at the top, add another `private const BLANK_AVATAR_FILENAME = 'blank.jpg'`
 We'll pretend that we have a `blank.jpg` file that should be used when there's no
 avatar.
 
+[[[ code('4b73161245') ]]]
+
 Back in the new method, add `$filename = $this->getUserAvatarFilename();`. And,
 `if (!$filename)`, then `$filename = self::BLANK_AVATAR_FILENAME`... because we
 *can* access the private constant from inside the class. Finish the method with
 `return self::AVATAR_FILE_PREFIX.'/'.$filename;`.
 
+[[[ code('f0b53466b2') ]]]
+
 Nice! Back in the controller, we're still accessing the private constant, which is
 *super* obvious. That'll push me to use the public function `getUserAvatarUri()`.
+
+[[[ code('3313319996') ]]]
 
 Refresh one more time! Love it!
