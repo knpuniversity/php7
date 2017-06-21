@@ -11,6 +11,8 @@ So we're going to write a really annoying function that acts just like Crazy Dav
 Open `MainController` and add a new `public function cookiesAction()`. Above, add
 `@Route("/crazy-dave")`.
 
+[[[ code('4cd03376df') ]]]
+
 If you downloaded the code for this project, you should have a `tutorial/` directory
 with an `Exception` directory inside. Copy that `Exception` directory into `src/AppBundle`.
 
@@ -18,9 +20,15 @@ This contains two new classes for the two reasons that Crazy Dave always gives u
 for *not* sharing his cookies: the `NoCookiesLeft` exception and the `NoCookieForYou`
 exception. That last one is particularly rude.
 
+[[[ code('7da16c5d80') ]]]
+
+[[[ code('2cb499e88e') ]]]
+
 See, Crazy Dave is such a jerk that he denies me reasonable cookie requests with
 random reasons. So, if `random_int(0, 1)`, then he says `throw new NoCookieForYou`.
 Otherwise, he throws a `new NoCookiesLeft` exception. So disappointing.
+
+[[[ code('b81f59ac34') ]]]
 
 Find your browser and change the URL to `/crazy-dave`. Yep, random awful errors.
 And *no* cookies.
@@ -32,6 +40,8 @@ ask Dave to whisper his denials. To do that, wrap all of the logic in a try-catc
 block. We need to catch *both* errors. No problem! First, catch `NoCookieForYou`.
 If that happens, set a new `$whisper` variable to `Crazy Dave whispered` and then
 `$e->getMessage()`.
+
+[[[ code('1f8fa2e03b') ]]]
 
 Here's the problem: the two exception classes do *not* extend a common exception
 class or interface... except for the *base* `Exception` class... and I don't want
@@ -55,6 +65,8 @@ instance. That's the proper solution.
 But if you can't update the classes, in PHP 7, you can catch them both at once. Delete
 the second catch and instead, say `NoCookieForYou | NoCookiesLeft $e`. Say hello
 to the multi-catch syntax.
+
+[[[ code('ef247e6d9f') ]]]
 
 Thanks to that, I can refresh and it still works.
 
