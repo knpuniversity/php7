@@ -2,10 +2,11 @@ diff --git a/src/AppBundle/Controller/GenusController.php b/src/AppBundle/Contro
 index 302a262..575ec81 100644
 --- a/src/AppBundle/Controller/GenusController.php
 +++ b/src/AppBundle/Controller/GenusController.php
-@@ -15,6 +15,17 @@ use Symfony\Component\HttpFoundation\Response;
+@@ -14,6 +14,17 @@ use Symfony\Component\HttpFoundation\Response;
+ 
  class GenusController extends Controller
  {
-     /**
++    /**
 +     * @Route("/types")
 +     */
 +    public function typesExampleAction()
@@ -16,10 +17,9 @@ index 302a262..575ec81 100644
 +        var_dump($genus);die;
 +    }
 +
-+    /**
+     /**
       * @Route("/genus/new")
       */
-     public function newAction()
 diff --git a/src/AppBundle/Entity/Genus.php b/src/AppBundle/Entity/Genus.php
 index 9d95676..81583a9 100644
 --- a/src/AppBundle/Entity/Genus.php
